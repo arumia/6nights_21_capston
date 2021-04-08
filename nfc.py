@@ -49,6 +49,10 @@ print("Found PN532 with firmware version: {0}.{1}".format(ver, rev))
 # Configure PN532 to communicate with MiFare cards
 pn532.SAM_configuration()
 
+if __name__ == '__main__':
+    print("메인 클래스로 코드를 실행하세여 젊은친구")
+    exit(-1)
+
 def readNRC():
     print("NFC테그를 읽기 위해 대기중...")
     while True:
