@@ -3,6 +3,9 @@ adafruit-circuitpython-busdevice==5.0.6
 adafruit-circuitpython-pn532==2.3.3
 Adafruit-PlatformDetect==3.5.0
 Adafruit-PureIO==1.1.8
+docutils==0.17
+lockfile==0.12.2
 pyftdi==0.52.9
 pyserial==3.5
+python-daemon==2.3.0
 pyusb==1.1.1
