@@ -3,3 +3,4 @@
 connect by usb with raspberryPi
 '''
 
+print("gps data....")
