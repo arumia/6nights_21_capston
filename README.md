@@ -26,8 +26,24 @@ OS: Raspberry Pi OS Lite
 ### 파이썬 설정
 ```
 sudo apt update && sudo apt upgrade -y
-sudo apt install -y git
+sudo apt install -y git python3.9
 git clone https://github.com/arumia/6nights_21_capston
 cd 6nights_21_capston
+python -m venv venv
 pip3 install -r requirments.txt
+
+#pip 만들기
+pip freeze > requirments.txt
 ```
+
+### git 명령어
+```
+git add .
+git config --global.user.email "내 이메일"
+git config --global.user.name "내 닉네임"
+git commit -m "커밋내용"
+git push
+```
+
+### GPS 참고 문서
+https://techlog.gurucat.net/239
