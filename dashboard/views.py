@@ -7,3 +7,15 @@ def index(request):
         request,
         'index.html'
     )
+
+def write(request):
+    return render(
+        request,
+        'write/write.html'
+    )
+
+def read(request):
+    return render(
+        request,
+        'read/read.html'
+    )
