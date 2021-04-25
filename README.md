@@ -47,3 +47,9 @@ git push
 
 ### GPS 참고 문서
 https://techlog.gurucat.net/239
+
+### CSS는 bootstrap
+공식문서: https://getbootstrap.com/docs/5.0/forms/layout/
+
+### 카카오지도 API
+공식문서: https://apis.map.kakao.com/web/guide/
