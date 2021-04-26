@@ -43,6 +43,8 @@ git config --global.user.email "내 이메일"
 git config --global.user.name "내 닉네임"
 git commit -m "커밋내용"
 git push
+
+git reset HEAD ... ...파일 지우기
 ```
 
 ### GPS 참고 문서
