@@ -10,12 +10,12 @@
                   <legend>채취 위치의 작물 정보</legend>
                     <div class="mb-3">
                         <label for="disabledTextInput" class="form-label">작업지 내 주요 작물</label>
-                      <select class="form-select" aria-label="Default select example">
-                        <option selected>복숭아 나무</option>
-                        <option value="1">사과 나무</option>
-                        <option value="2">피자 나무</option>
-                        <option value="3">단백질 나무</option>
-                      </select>
+                        <select class="form-select" aria-label="Default select example">
+                            <option selected>복숭아 나무</option>
+                            <option value="1">사과 나무</option>
+                            <option value="2">피자 나무</option>
+                            <option value="3">단백질 나무</option>
+                        </select>
                     </div>
                   <div class="input-group mb-3">
                     <span class="input-group-text" id="basic-addon1">작물 년식(년)</span>
@@ -46,7 +46,7 @@
           </div>
 
           <div id="map" class="col-4" style="height:50vh" >
-             <script>
+               <script>
                   var container = document.getElementById('map');
                   var options = {
                       center: new kakao.maps.LatLng(35.8888, 128.6103),
@@ -54,6 +54,16 @@
                   }   ;
 
                   var map = new kakao.maps.Map(container, options);
+                  var markerPosition  = new kakao.maps.LatLng(35.8888, 128.6103);
+
+                    // 마커를 생성합니다
+                  var marker = new kakao.maps.Marker({
+                      position: markerPosition
+                  });
+
+                  // 마커가 지도 위에 표시되도록 설정합니다
+                  marker.setMap(map);
+
               </script>
           </div>
       </div>
