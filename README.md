@@ -34,6 +34,9 @@ pip3 install -r requirments.txt
 
 #pip 만들기
 pip freeze > requirments.txt
+
+#장고 실행
+python manage.py runserver
 ```
 
 ### git 명령어

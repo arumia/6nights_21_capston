@@ -1,6 +1,6 @@
 # 팀장님이 라즈베이 파이를 사주지 않으셔서... 울면서 짜는중인 코드
 
-# 파이참에서 코드 실은 Shift+F10 을 누르세여!
+# 파이참에서 코드 실행은 Shift+F10 을 누르세여!
 # Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
 import time
 '''import daemon'''
