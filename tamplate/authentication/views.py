@@ -28,7 +28,7 @@ def login_view(request):
                 login(request, user)
                 return redirect("/")
             else:    
-                msg = 'Invalid credentials'    
+                msg = '가입하지 않은 아이디이거나,<br>잘못된 비밀번호입니다.'
         else:
             msg = 'Error validating the form'    
 

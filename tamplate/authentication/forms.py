@@ -11,14 +11,14 @@ class LoginForm(forms.Form):
     username = forms.CharField(
         widget=forms.TextInput(
             attrs={
-                "placeholder" : "Username",                
+                "placeholder" : "아이디",
                 "class": "form-control"
             }
         ))
     password = forms.CharField(
         widget=forms.PasswordInput(
             attrs={
-                "placeholder" : "Password",                
+                "placeholder" : "비밀번호",
                 "class": "form-control"
             }
         ))
@@ -27,28 +27,28 @@ class SignUpForm(UserCreationForm):
     username = forms.CharField(
         widget=forms.TextInput(
             attrs={
-                "placeholder" : "Username",                
+                "placeholder" : "가입할 아이디",
                 "class": "form-control"
             }
         ))
     email = forms.EmailField(
         widget=forms.EmailInput(
             attrs={
-                "placeholder" : "Email",                
+                "placeholder" : "이메일",
                 "class": "form-control"
             }
         ))
     password1 = forms.CharField(
         widget=forms.PasswordInput(
             attrs={
-                "placeholder" : "Password",                
+                "placeholder" : "비밀번호",
                 "class": "form-control"
             }
         ))
     password2 = forms.CharField(
         widget=forms.PasswordInput(
             attrs={
-                "placeholder" : "Password check",                
+                "placeholder" : "비밀번호 확인",
                 "class": "form-control"
             }
         ))
