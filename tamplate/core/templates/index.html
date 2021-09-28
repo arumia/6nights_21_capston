@@ -158,7 +158,18 @@
                                 <span class="d-block m-t-5">현제 작업의 <code>위치</code> </span>
                             </div>
                             <div class="card-block">
-                                <div id="markers-map" class="set-map" style="height:260px;"></div>
+                                <div id="map" class="set-map" style="height:280px;">
+                                    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=fb12b544ca905865b29be757e16b4c30"></script>
+                                    <script>
+                                        var container = document.getElementById('map');
+                                        var options = {
+                                            center: new kakao.maps.LatLng(35.8888, 128.6103),
+                                            level: 4
+                                        }   ;
+
+                                        var map = new kakao.maps.Map(container, options);
+                                    </script>
+                                </div>
                             </div>
                         </div>
                     </div>
