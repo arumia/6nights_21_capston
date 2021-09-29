@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-j+^6jw$*u0s-t94vtv9(1v+d1m8i9fx9rg#(00m-8p2w!ao!-z
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['self.arumia.xyz','127.0.0.1']
 
 
 # Application definition
