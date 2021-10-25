@@ -1,6 +1,6 @@
 {% extends "layouts/base.html" %}
 
-{% block title %} UI Forms {% endblock %} 
+{% block title %} 농지정보 {% endblock %}
 
 <!-- Specific CSS goes HERE -->
 {% block stylesheets %}{% endblock stylesheets %}
@@ -15,12 +15,12 @@
                 <div class="row align-items-center">
                     <div class="col-md-12">
                         <div class="page-header-title">
-                            <h5 class="m-b-10">Form Elements</h5>
+                            <h5 class="m-b-10">농지정보</h5>
                         </div>
                         <ul class="breadcrumb">
                             <li class="breadcrumb-item"><a href="/"><i class="feather icon-home"></i></a></li>
-                            <li class="breadcrumb-item"><a href="javascript:">Form Componants</a></li>
-                            <li class="breadcrumb-item"><a href="javascript:">Form Elements</a></li>
+{#                            <li class="breadcrumb-item"><a href="javascript:">Form Componants</a></li>#}
+                            <li class="breadcrumb-item"><a href="javascript:">농지정보</a></li>
                         </ul>
                     </div>
                 </div>
@@ -34,48 +34,50 @@
                     <div class="col-sm-12">
                         <div class="card">
                             <div class="card-header">
-                                <h5>Basic Componant</h5>
+                                <h5>농지정보</h5>
                             </div>
                             <div class="card-body">
-                                <h5>Form controls</h5>
+                                <h5>현재 입력된 농지정보</h5>
+                                <h6>"수정하시려면 아래 입력창에 신규 정보 입력후 저장버튼을 누르세요"</h6>
                                 <hr>
                                 <div class="row">
                                     <div class="col-md-6">
                                         <form>
                                             <div class="form-group">
-                                                <label for="exampleInputEmail1">Email address</label>
-                                                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
-                                                <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+                                                <label for="exampleInputEmail1" class="form-label">작물</label>
+                                                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="작물">
+{#                                                <small id="emailHelp" class="form-text text-muted">이런 작은 글씨로도 여기에 넣을 수 있음</small>#}
                                             </div>
                                             <div class="form-group">
-                                                <label for="exampleInputPassword1">Password</label>
-                                                <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                                                <label for="exampleInputPassword1">작물수</label>
+                                                <input type="password" class="form-control" id="exampleInputPassword1" placeholder="작물수">
                                             </div>
                                             <div class="form-group form-check">
                                                 <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                                                <label class="form-check-label" for="exampleCheck1">Check me out</label>
+                                                <label class="form-check-label" for="exampleCheck1">의미없는 체크박스</label>
                                             </div>
-                                            <button type="submit" class="btn btn-primary">Submit</button>
+                                            <button type="submit" class="btn btn-primary">저장</button>
                                         </form>
                                     </div>
                                     <div class="col-md-6">
                                         <form>
                                             <div class="form-group">
-                                                <label>Text</label>
-                                                <input type="text" class="form-control" placeholder="Text">
+                                                <label>수령</label>
+                                                <input type="text" class="form-control" placeholder="수령">
                                             </div>
                                             <div class="form-group">
-                                                <label for="exampleFormControlSelect1">Example select</label>
+                                                <label for="exampleFormControlSelect1">최근 병해충</label>
                                                 <select class="form-control" id="exampleFormControlSelect1">
-                                                    <option>1</option>
-                                                    <option>2</option>
-                                                    <option>3</option>
-                                                    <option>4</option>
-                                                    <option>5</option>
+                                                    <option selected>없음</option>
+                                                    <option>방색 우한 풍뎅이</option>
+                                                    <option>장지리 가지나방</option>
+                                                    <option>사과독 나방</option>
+                                                    <option>콩독나방</option>
+                                                    <option>선녀벌레</option>
                                                 </select>
                                             </div>
                                             <div class="form-group">
-                                                <label for="exampleFormControlTextarea1">Example textarea</label>
+                                                <label for="exampleFormControlTextarea1">기타 특이사항</label>
                                                 <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
                                             </div>
                                         </form>
