@@ -5,34 +5,34 @@ $(document).ready(function() {
     Morris.Bar({
         element: 'morris-bar-chart',
         data: [{
-                y: '2008',
-                a: 50,
-                b: 40,
-                c: 35,
+                y: '2017',
+                a: 80,
+                b: 66,
+                c: 52,
             },
             {
-                y: '2009',
+                y: '2018',
+                a: 75,
+                b: 62,
+                c: 49,
+            },
+            {
+                y: '2019',
+                a: 72,
+                b: 62,
+                c: 52,
+            },
+            {
+                y: '2020',
                 a: 75,
                 b: 65,
-                c: 60,
-            },
-            {
-                y: '2010',
-                a: 50,
-                b: 40,
                 c: 55,
             },
             {
-                y: '2011',
-                a: 75,
-                b: 65,
-                c: 85,
-            },
-            {
-                y: '2012',
-                a: 100,
-                b: 90,
-                c: 40,
+                y: '2021',
+                a: 84,
+                b: 72,
+                c: 60,
             }
         ],
         xkey: 'y',
@@ -50,31 +50,31 @@ $(document).ready(function() {
     Morris.Bar({
         element: 'morris-bar-stacked-chart',
         data: [{
-                y: '2008',
+                y: '2017',
                 a: 50,
                 b: 40,
                 c: 35,
             },
             {
-                y: '2009',
+                y: '2018',
                 a: 75,
                 b: 65,
                 c: 60,
             },
             {
-                y: '2010',
+                y: '2019',
                 a: 50,
                 b: 40,
                 c: 55,
             },
             {
-                y: '2011',
+                y: '2020',
                 a: 75,
                 b: 65,
                 c: 85,
             },
             {
-                y: '2012',
+                y: '2021',
                 a: 100,
                 b: 90,
                 c: 40,
@@ -95,38 +95,34 @@ $(document).ready(function() {
     // [ area-angle-chart ] start
     Morris.Area({
         element: 'morris-area-chart',
-        data: [{
-                y: '2006',
-                a: 0,
-                b: 0
-            },
+        data: [
             {
-                y: '2007',
+                y: '2016',
                 a: 130,
                 b: 100
             },
             {
-                y: '2008',
+                y: '2017',
                 a: 80,
                 b: 60
             },
             {
-                y: '2009',
+                y: '2018',
                 a: 70,
                 b: 200
             },
             {
-                y: '2010',
+                y: '2019',
                 a: 220,
                 b: 150
             },
             {
-                y: '2011',
+                y: '2020',
                 a: 105,
                 b: 90
             },
             {
-                y: '2012',
+                y: '2021',
                 a: 250,
                 b: 150
             }
@@ -152,37 +148,32 @@ $(document).ready(function() {
     Morris.Area({
         element: 'morris-area-curved-chart',
         data: [{
-            period: '2010',
-            iphone: 0,
-            ipad: 0,
-            itouch: 0
-        }, {
-            period: '2011',
+            period: '2016',
             iphone: 50,
             ipad: 15,
             itouch: 5
         }, {
-            period: '2012',
+            period: '2017',
             iphone: 20,
             ipad: 50,
             itouch: 65
         }, {
-            period: '2013',
+            period: '2018',
             iphone: 60,
             ipad: 12,
             itouch: 7
         }, {
-            period: '2014',
+            period: '2019',
             iphone: 30,
             ipad: 20,
             itouch: 120
         }, {
-            period: '2015',
+            period: '2020',
             iphone: 25,
             ipad: 80,
             itouch: 40
         }, {
-            period: '2016',
+            period: '2021',
             iphone: 10,
             ipad: 10,
             itouch: 10
