@@ -626,10 +626,10 @@
 
                 </div>
                 <div class=".fixed-button active" >
-                    <button onclick="alert('작업 시작...')" target="_blank" class="btn btn-md btn-primary">
+                    <button id="btn" onclick='onBtnClick()' target="_blank" class="btn btn-md btn-primary">
                         <i class="fa fa-rocket" aria-hidden="false"></i> 작업 시작
                     </button>
-                    <button onclick="alert('장비를 정지합니다.')" target="_blank" class="btn btn-md btn-primary">
+                    <button id='stop' onclick="onBtnStop()" target="_blank" class="btn btn-md btn-primary">
                         <i class="fa fa-rocket" aria-hidden="false"></i> 작업 중지
                     </button>
                 </div>
@@ -649,8 +649,19 @@
     <script src="/static/assets/plugins/google-maps/js/gmaps.js"></script>
     <script src="/static/assets/js/pages/google-maps.js"></script>
     <script>
-    funtion onBtnClick(){
+    function onBtnClick(){
         const btnElement  = document.getElementById('btn');
+        const btnStop  = document.getElementById('stop');
+        btnElement.innerHTML = '<i class="fa fa-rocket" aria-hidden="false"></i> 작업중....';
+        btnStop.innerHTML = '<i class="fa fa-rocket" aria-hidden="false"></i> 작업 중지';
+        alert('작업을 시작합니다.')
+    }
+    function onBtnStop(){
+        const btnStop  = document.getElementById('stop');
+        const btnElement  = document.getElementById('btn');
+        btnElement.innerHTML = '<i class="fa fa-rocket" aria-hidden="false"></i> 작업 시작';
+        btnStop.innerHTML = '<i class="fa fa-rocket" aria-hidden="false"></i> 중지됨';
+        alert('작업을 중지합니다.')
     }
     </script>
 {% endblock javascripts %}
