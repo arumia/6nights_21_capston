@@ -625,6 +625,14 @@
 {#                    </div>#}
 
                 </div>
+                <div class=".fixed-button active" >
+                    <button onclick="alert('작업 시작...')" target="_blank" class="btn btn-md btn-primary">
+                        <i class="fa fa-rocket" aria-hidden="false"></i> 작업 시작
+                    </button>
+                    <button onclick="alert('장비를 정지합니다.')" target="_blank" class="btn btn-md btn-primary">
+                        <i class="fa fa-rocket" aria-hidden="false"></i> 작업 중지
+                    </button>
+                </div>
                 <!-- [ Main Content ] end -->
             </div>
         </div>
@@ -640,5 +648,9 @@
     <script src="https://maps.google.com/maps/api/js?sensor=true"></script>
     <script src="/static/assets/plugins/google-maps/js/gmaps.js"></script>
     <script src="/static/assets/js/pages/google-maps.js"></script>
-
+    <script>
+    funtion onBtnClick(){
+        const btnElement  = document.getElementById('btn');
+    }
+    </script>
 {% endblock javascripts %}
