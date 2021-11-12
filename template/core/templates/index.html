@@ -23,7 +23,7 @@
                                 <h6 class="mb-4">DATE</h6>
                                 <div class="row d-flex align-items-center">
                                     <div class="col-9">
-                                        <h3 class="f-w-300 d-flex align-items-center m-b-0"><i class="feather icon-calendar text-c-green f-30 m-r-10"></i>2021년 09월 28일 18:00</h3>
+                                        <h3 class="f-w-300 d-flex align-items-center m-b-0" id="now"><i class="feather icon-calendar text-c-green f-30 m-r-10"></i>2021년 09월 28일 18:00</h3>
                                     </div>
 
 {#                                        <div class="col-3 text-right">#}
@@ -663,5 +663,11 @@
         btnStop.innerHTML = '<i class="fa fa-rocket" aria-hidden="false"></i> 중지됨';
         alert('작업을 중지합니다.')
     }
+    function time(){
+        var time= new Date(); //시간받기위해서 new date
+        document.getElementById("now").innerHTML='<i class="feather icon-calendar text-c-green f-30 m-r-10"></i>'+time.getFullYear()+"년 "+time.getMonth()+"월 "+time.getDate()+"일 "+time.getHours()+":"+time.getMinutes();
+        setInterval("time()",1000);     //1초 지난후 time()실행
+    }
+    time();
     </script>
 {% endblock javascripts %}
