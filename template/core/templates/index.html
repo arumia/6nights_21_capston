@@ -244,13 +244,13 @@
                             <div class="card-block">
                                 <div class="row align-items-center justify-content-center card-active">
                                     <div class="col-6">
-                                        <h5 class="text-center m-b-10"><span class="text-muted m-r-5">기온:</span>27.5℃</h5>
+                                        <h5 class="text-center m-b-10" id="temp"><span class="text-muted m-r-5">기온:</span>27.5℃</h5>
                                         <div class="progress">
                                             <div class="progress-bar progress-c-theme" role="progressbar" style="width:27.5%;height:6px;" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
                                         </div>
                                     </div>
                                     <div class="col-6">
-                                        <h5 class="text-center  m-b-10"><span class="text-muted m-r-5">습도:</span>55%</h5>
+                                        <h5 class="text-center  m-b-10" id="rh"><span class="text-muted m-r-5">습도:</span>55%</h5>
                                         <div class="progress">
                                             <div class="progress-bar progress-c-theme2" role="progressbar" style="width:55%;height:6px;" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100"></div>
                                         </div>
@@ -306,7 +306,7 @@
                             <div class="card-block">
                                 <div class="row align-items-center justify-content-center card-active">
                                     <div class="col-12">
-                                        <h5 class="text-center m-b-10"><span class="text-muted m-r-5">대구광역시 </span>산격3동 1370-1</h5>
+                                        <h5 class="text-center m-b-10" id="address"><span class="text-muted m-r-5">대구광역시 </span>산격3동 1370-1</h5>
                                             <h6 class="text-center m-b-10">35.892714, 128.614201</h6>
 {#                                        <div class="progress">#}
 {#                                            <div class="progress-bar progress-c-theme" role="progressbar" style="width:80%;height:6px;" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>#}
@@ -669,5 +669,27 @@
         setInterval("time()",1000);     //1초 지난후 time()실행
     }
     time();
+    function getWeather(lat, lon) {
+        fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=&units=metric`)
+        .then(res => res.json())
+        .then(data => {
+            const temp = data.main.temp;
+            const rh =  data.main.humidity;
+            const weathers = data.weather[data.weather.length -1];
+            document.getElementById("temp").innerHTML = `<span class="text-muted m-r-5">기온:</span> ${temp}&#176;C ${weathers.main}`;
+            document.getElementById("rh").innerHTML = `<span class="text-muted m-r-5">습도:</span> ${rh}&#176;%`;
+        })
+    }
+    getWeather(35.893684953438736, 128.61327796269993);
+    function searchDetailAddrFromCoords(lat, lng, callback) {
+        // 좌표로 법정동 상세 주소 정보를 요청합니다
+        geocoder.coord2Address(lng, lat, callback);
+    }
+    searchDetailAddrFromCoords(35.893684953438736, 128.61327796269993, function(result, status) {
+        if (status === kakao.maps.services.Status.OK) {
+            // 위치 대한 법정동 상세 주소정보를 표시합니다
+            document.getElementById("address").innerHTML = result[0].address.address_name;
+        }
+    };
     </script>
 {% endblock javascripts %}
