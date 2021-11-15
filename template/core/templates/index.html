@@ -159,7 +159,7 @@
                             </div>
                             <div class="card-block">
                                 <div id="map" class="set-map" style="height:310px;">
-                                    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=fb12b544ca905865b29be757e16b4c30"></script>
+                                    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=fb12b544ca905865b29be757e16b4c30&libraries=services"></script>
                                     <script>
                                         var container = document.getElementById('map');
                                         var options = {
@@ -177,6 +177,18 @@
                                             position: markerPosition
                                         });
                                         marker.setMap(map);
+
+                                        var geocoder = new kakao.maps.services.Geocoder();
+                                        function searchDetailAddrFromCoords(lat, lng, callback) {
+                                            // 좌표로 법정동 상세 주소 정보를 요청합니다
+                                            geocoder.coord2Address(lat, lng, callback);
+                                        }
+                                        searchDetailAddrFromCoords(35.893684953438736, 128.61327796269993, function(result, status) {
+                                            if (status === kakao.maps.services.Status.OK) {
+                                                // 위치 대한 법정동 상세 주소정보를 표시합니다
+                                                document.getElementById("address").innerHTML = result[0].address.address_name;
+                                            }
+                                        });
                                     </script>
                                 </div>
                             </div>
@@ -643,11 +655,6 @@
 
 <!-- Specific Page JS goes HERE  -->
 {% block javascripts %}
-
-    <script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js"></script>
-    <script src="https://maps.google.com/maps/api/js?sensor=true"></script>
-    <script src="/static/assets/plugins/google-maps/js/gmaps.js"></script>
-    <script src="/static/assets/js/pages/google-maps.js"></script>
     <script>
     function onBtnClick(){
         const btnElement  = document.getElementById('btn');
@@ -681,15 +688,5 @@
         })
     }
     getWeather(35.893684953438736, 128.61327796269993);
-    function searchDetailAddrFromCoords(lat, lng, callback) {
-        // 좌표로 법정동 상세 주소 정보를 요청합니다
-        geocoder.coord2Address(lng, lat, callback);
-    }
-    searchDetailAddrFromCoords(35.893684953438736, 128.61327796269993, function(result, status) {
-        if (status === kakao.maps.services.Status.OK) {
-            // 위치 대한 법정동 상세 주소정보를 표시합니다
-            document.getElementById("address").innerHTML = result[0].address.address_name;
-        }
-    };
     </script>
 {% endblock javascripts %}
