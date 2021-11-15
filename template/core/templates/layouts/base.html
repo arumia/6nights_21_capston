@@ -36,7 +36,6 @@
 </head>
 
 <body>
-
     <!-- [ Pre-loader ] start -->
     <div class="loader-bg">
         <div class="loader-track">
@@ -50,6 +49,9 @@
     <!-- SideBar -->
     {% include 'includes/sidebar.html' %}
 
+    <!-- Scrpit -->
+    {% include 'includes/scripts.html' %}
+
     <div class="pcoded-main-container">
         <div class="pcoded-wrapper">
 
@@ -57,8 +59,6 @@
 
         </div>
     </div>
-
-    {% include 'includes/scripts.html' %}
 
     <!-- Specific Page JS goes HERE  -->
     {% block javascripts %}{% endblock javascripts %}

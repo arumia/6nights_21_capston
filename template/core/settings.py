@@ -19,7 +19,7 @@ SECRET_KEY = config('SECRET_KEY', default='S#perS3crEt_1122')
 DEBUG = config('DEBUG', default=True, cast=bool)
 
 # load production server from .env
-ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'sami.6nights.tech', config('SERVER', default='192.168.0.11')]
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'sami.works', config('SERVER', default='192.168.0.11')]
 
 # Application definition
 
