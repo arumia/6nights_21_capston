@@ -2,52 +2,6 @@
 $(document).ready(function() {
     setTimeout(function() {
 
-    // [ bar-stacked ] chart start
-    Morris.Bar({
-        element: 'morris-bar-stacked-chart',
-        data: [{
-                y: '2017',
-                a: 50,
-                b: 40,
-                c: 35,
-            },
-            {
-                y: '2018',
-                a: 75,
-                b: 65,
-                c: 60,
-            },
-            {
-                y: '2019',
-                a: 50,
-                b: 40,
-                c: 55,
-            },
-            {
-                y: '2020',
-                a: 75,
-                b: 65,
-                c: 85,
-            },
-            {
-                y: '2021',
-                a: 100,
-                b: 90,
-                c: 40,
-            }
-        ],
-        xkey: 'y',
-        stacked: true,
-        barSizeRatio: 0.50,
-        barGap: 3,
-        resize: true,
-        responsive:true,
-        ykeys: ['a', 'b', 'c'],
-        labels: ['Bar 1', 'Bar 2', 'Bar 3'],
-        barColors: ["0-#1de9b6-#1dc4e9", "0-#899FD4-#A389D4", "#04a9f5"]
-    });
-    // [ bar-stacked ] chart end
-
     // [ area-angle-chart ] start
     Morris.Area({
         element: 'morris-area-chart',
@@ -199,5 +153,52 @@ $(document).ready(function() {
         lineColors: ['#1de9b6', '#04a9f5']
     });
     // [ line-angle-chart ] end
+
+    // [ bar-stacked ] chart start
+    Morris.Bar({
+        element: 'morris-bar-stacked-chart',
+        data: [{
+                y: '2017',
+                a: 50,
+                b: 40,
+                c: 35,
+            },
+            {
+                y: '2018',
+                a: 75,
+                b: 65,
+                c: 60,
+            },
+            {
+                y: '2019',
+                a: 50,
+                b: 40,
+                c: 55,
+            },
+            {
+                y: '2020',
+                a: 75,
+                b: 65,
+                c: 85,
+            },
+            {
+                y: '2021',
+                a: 100,
+                b: 90,
+                c: 40,
+            }
+        ],
+        xkey: 'y',
+        stacked: true,
+        barSizeRatio: 0.50,
+        barGap: 3,
+        resize: true,
+        responsive:true,
+        ykeys: ['a', 'b', 'c'],
+        labels: ['Bar 1', 'Bar 2', 'Bar 3'],
+        barColors: ["0-#1de9b6-#1dc4e9", "0-#899FD4-#A389D4", "#04a9f5"]
+    });
+    // [ bar-stacked ] chart end
+
         }, 700);
 });
