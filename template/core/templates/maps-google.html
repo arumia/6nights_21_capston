@@ -144,6 +144,10 @@
                                                     marker.setPosition(mouseEvent.latLng);
                                                     marker.setMap(map);
 
+                                                    // GPS값 변경
+                                                    document.getElementById("lat").value = mouseEvent.latLng.getLat()
+                                                    document.getElementById("lng").value = mouseEvent.latLng.getLng();
+
                                                     // 인포윈도우에 클릭한 위치에 대한 법정동 상세 주소정보를 표시합니다
                                                     infowindow.setContent(content);
                                                     infowindow.open(map, marker);
@@ -179,8 +183,8 @@
                                 <div class="card-block">
                                     <form method="post" id="geocoding_form1">
                                         <div class="input-group input-group-button mb-3">
-                                            <input type="text" id="lat" class="form-control" >
-                                            <input type="text" id="lng" class="form-control" >
+                                            <input type="text" id="lat" class="form-control" value="" >
+                                            <input type="text" id="lng" class="form-control" value="" >
                                             <span class="input-group-addon" id="basic-addon1">
                                             <button class="btn btn-primary m-0">적용</button>
                                             </span>
@@ -288,6 +292,8 @@
                 (function(marker, title, position) {
                     kakao.maps.event.addListener(marker, 'mouseover', function() {
                         displayInfowindow(marker, title, positon);
+                        document.getElementById("lat").value = position.getLat()
+                        document.getElementById("lng").value = position.getLng();
                     });
 
                     kakao.maps.event.addListener(marker, 'mouseout', function() {
@@ -296,6 +302,8 @@
 
                     itemEl.onmouseover =  function () {
                         displayInfowindow(marker, title, position);
+                        document.getElementById("lat").value = position.getLat()
+                        document.getElementById("lng").value = position.getLng();
                     };
 
                     itemEl.onmouseout =  function () {
