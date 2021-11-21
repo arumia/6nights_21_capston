@@ -71,7 +71,7 @@ void loop()
       while(1){
         if(digitalRead(SWITCH_UP) == LOW){
                 Serial.println("upper switch up!");
-                return;
+                break;
         }
         digitalWrite(PUL,HIGH);
         delayMicroseconds(50);
