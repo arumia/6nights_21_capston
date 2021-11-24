@@ -19,8 +19,8 @@
                         </div>
                         <ul class="breadcrumb">
                             <li class="breadcrumb-item"><a href="index.html"><i class="feather icon-home"></i></a></li>
-                            <li class="breadcrumb-item"><a href="javascript:">Basic Componants</a></li>
-                            <li class="breadcrumb-item"><a href="javascript:">Badges</a></li>
+                            <li class="breadcrumb-item"><a href="javascript:">작업 기록</a></li>
+                            <li class="breadcrumb-item"><a href="javascript:">제어</a></li>
                         </ul>
                     </div>
                 </div>
@@ -35,29 +35,22 @@
                     <div class="col-sm-12">
                         <div class="card">
                             <div class="card-header">
-                                <h5>Basic Badges</h5>
+                                <h5>작업 기록</h5>
                             </div>
                             <div class="card-body">
-                                <h1>Example heading <span class="badge badge-secondary">New</span></h1>
-                                <h2>Example heading <span class="badge badge-secondary">New</span></h2>
-                                <h3>Example heading <span class="badge badge-secondary">New</span></h3>
-                                <h4>Example heading <span class="badge badge-secondary">New</span></h4>
-                                <h5>Example heading <span class="badge badge-secondary">New</span></h5>
-                                <h6>Example heading <span class="badge badge-secondary">New</span></h6>
+                                    <textarea readonly class="form-control" id="received-data" rows="24"></textarea>
                             </div>
                         </div>
-                        <div class="card">
-                            <div class="card-header">
-                                <h5>Button Badges</h5>
-                            </div>
-                            <div class="card-body">
-                                <button type="button" class="btn btn-primary">primary <span class="badge badge-light">4</span></button>
-                                <button type="button" class="btn btn-secondary">secondary <span class="badge badge-light">4</span></button>
-                                <button type="button" class="btn btn-success">success <span class="badge badge-light">4</span></button>
-                                <button type="button" class="btn btn-danger">danger <span class="badge badge-light">4</span></button>
-                                <button type="button" class="btn btn-warning">warning <span class="badge badge-light">4</span></button>
-                                <button type="button" class="btn btn-info">info <span class="badge badge-light">4</span></button>
-                            </div>
+                        <div class=".fixed-button active" >
+                            <button id="start"  target="_blank" class="btn btn-md btn-danger float-right">
+                                <i class="fa fa-rocket" aria-hidden="false"></i> 긴급 정지
+                            </button>
+                            <button id='stop' target="_blank" class="btn btn-md btn-primary float-right">
+                                <i class="fa fa-rocket" aria-hidden="false"></i> 작업 시작
+                            </button>
+                            <button id='clear' target="_blank" class="btn btn-md btn-info float-right">
+                                <i class="fa fa-rocket" aria-hidden="false"></i> 내용 지우기
+                            </button>
                         </div>
                     </div>
                     <!-- [ badge ] end -->
@@ -71,4 +64,6 @@
 {% endblock content %}
 
 <!-- Specific Page JS goes HERE  -->
-{% block javascripts %}{% endblock javascripts %}
+{% block javascripts %}
+    <script src="/static/assets/js/main.js"></script>
+{% endblock javascripts %}
