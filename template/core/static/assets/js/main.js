@@ -4,7 +4,7 @@
      
     socket.onopen = function () {  
       console.log('connected');
-      sendMessage({ method: 'open', args: { port: '/dev/ttyACM0', baudrate: 9600, msg: 'Port is opened' } });
+      sendMessage({ method: 'open', args: { port: '/dev/ttyACM0', baudrate: 115200, msg: 'Port is opened' } });
     }; 
 
     socket.onmessage = function (message) {
