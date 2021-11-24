@@ -54,9 +54,10 @@
     $('#send-message').on('click', function (evt) {
         sendMessage({ method: 'send', args: { data: $('#message').val(), msg: false } });
     });
-    $('#start').on('click', function (evt) {
-        sendMessage({ method: 'send', args: { data: 'd', msg: false } });
-        sendMessage({ method: 'send', args: { data: 'u', msg: false } });
+
+    $('#startbtn').on('click', function (evt) {
+        sendMessage({ method: 'send', args: { data: "d", msg: false } });
+        sendMessage({ method: 'send', args: { data: "u", msg: false } });
     });
     $('#clear').on('click', function(evt) {
         $('#received-data').val('');
