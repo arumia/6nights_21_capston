@@ -80,7 +80,7 @@ def get_base_time(hour):
 
 
 def get_weather():
-    service_key = 'Insert Your ServiceKey!!!'
+    service_key = ''
     now = datetime.now()
     now_date = now.strftime('%Y%m%d')
     now_hour = int(now.strftime('%H'))
@@ -95,10 +95,10 @@ def get_weather():
     base_date = base_date
     base_time = base_hour
     nx, ny = grid(35.893684953438736, 128.61327796269993)
-    _type = 'json'
-    api_url = 'http://newsky2.kma.go.kr/service/SecndSrtpdFrcstInfoService2/ForecastSpaceData?serviceKey={}' \
-              '&base_date={}&base_time={}&nx={}&ny={}&numOfRows={}&_type={}'.format(
-        service_key, base_date, base_time, nx, ny, num_of_rows, _type)
+    dataType = 'json'
+    api_url = 'http://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getVilageFcst?serviceKey={}' \
+              '&numOfRows={}&dataType={}&base_date={}&base_time={}&nx={}&ny={}'.format(
+        service_key, num_of_rows, dataType, base_date, base_time, nx, ny)
 
     data = urlopen(api_url).read().decode('utf8')
     json_data = json.loads(data)
