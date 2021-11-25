@@ -14,7 +14,7 @@ RUN echo "export VISIBLE=now" >> /etc/prifile
 
 RUN git clone https://github.com/arumia/6nights_21_capston app
 
-WORKDIR /root/app
+WORKDIR /root/app/template
 
 RUN pip install -r requirments.txt
 
