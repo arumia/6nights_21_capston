@@ -9,7 +9,7 @@ from django.contrib.auth.models import User
 # Create your models here.
 
 class Weather(models.Model):
-    base_time = models.DateTimeField()
+    basetime = models.DateTimeField()
     fcstTime = models.DateTimeField()
     temp = models.CharField(max_length=8)
     rain = models.IntegerField()

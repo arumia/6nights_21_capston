@@ -1,7 +1,7 @@
 import math
 import json
-from datetime import datetime
-from urllib.request import urlopen
+from datetime import datetime, time, date
+import requests
 
 
 def grid(lat, lng) :
@@ -49,10 +49,29 @@ def grid(lat, lng) :
 def get_sky_info(data):
     try:
         weather_info = data['response']['body']['items']['item']
-        if weather_info[3]['category'] == 'SKY':
-            return weather_info[3]['fcstValue']
-        elif weather_info[5]['category'] == 'SKY':
-            return weather_info[5]['fcstValue']
+
+        basedate = weather_info[1]['baseDate']
+        d = date.fromisoformat(basedate[:4]+'-'+basedate[4:6]+'-'+basedate[6:])
+        baseTime = weather_info[1]['baseTime']
+        t = time.fromisoformat(baseTime[:2]+":"+baseTime[2:])
+        base_time = datetime.combine(d, t)
+
+        fcstdate = weather_info[1]['fcstDate']
+        d = date.fromisoformat(fcstdate[:4]+'-'+fcstdate[4:6]+'-'+fcstdate[6:])
+        fcstTime = weather_info[1]['fcstTime']
+        t = time.fromisoformat(fcstTime[:2] + ":" + fcstTime[2:])
+        fcst_time = datetime.combine(d, t)
+
+        for i in range(0,11):
+            if weather_info[i]['category'] == 'TMP':
+                tmp = weather_info[i]['fcstValue']
+            elif weather_info[i]['category'] == 'POP':
+                pop = weather_info[i]['fcstValue']
+        json_object = {'basetime': base_time.strftime('%Y-%m-%dT%H:%M'), 'fcstTime': fcst_time.strftime('%Y-%m-%dT%H:%M'), 'temp': tmp, 'rain': int(pop)}
+        send_data = json.dumps(json_object)
+        print(send_data)
+        headers = {'Content-type': 'application/json', 'Accept': 'text/plain'}
+        print(requests.post("http://sami.works:8000/api/weather", data=json.dumps(json_object), headers=headers))
     except KeyError:
         print('API 호출 실패!')
 
@@ -80,7 +99,7 @@ def get_base_time(hour):
 
 
 def get_weather():
-    service_key = ''
+    service_key = 'pz9gPzY4v9gCNURAJcS9K%2BvxjzuNyizZ%2FE9%2B14mYgV3IauXIHkY71eIcK7d1zlwx3fP%2FG7uuxyU8FhS%2BX2vDTA%3D%3D'
     now = datetime.now()
     now_date = now.strftime('%Y%m%d')
     now_hour = int(now.strftime('%H'))
@@ -91,7 +110,7 @@ def get_weather():
         base_date = now_date
     base_hour = get_base_time(now_hour)
 
-    num_of_rows = '6'
+    num_of_rows = '12'
     base_date = base_date
     base_time = base_hour
     nx, ny = grid(35.893684953438736, 128.61327796269993)
@@ -100,8 +119,8 @@ def get_weather():
               '&numOfRows={}&dataType={}&base_date={}&base_time={}&nx={}&ny={}'.format(
         service_key, num_of_rows, dataType, base_date, base_time, nx, ny)
 
-    data = urlopen(api_url).read().decode('utf8')
-    json_data = json.loads(data)
+    data = requests.get(api_url)
+    json_data = data.json()
     sky = get_sky_info(json_data)
     return sky
 
