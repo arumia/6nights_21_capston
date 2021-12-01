@@ -48,30 +48,31 @@ def grid(lat, lng) :
 
 def get_sky_info(data):
     try:
+        URL = "http://127.0.0.1:8000/api/weather/"
+        print(requests.post(URL+"delete_all/", data=""))
         weather_info = data['response']['body']['items']['item']
+        for j in range(1,11):
+            basedate = weather_info[1]['baseDate']
+            d = date.fromisoformat(basedate[:4] + '-' + basedate[4:6] + '-' + basedate[6:])
+            baseTime = weather_info[1]['baseTime']
+            t = time.fromisoformat(baseTime[:2] + ":" + baseTime[2:])
+            base_time = datetime.combine(d, t)
 
-        basedate = weather_info[1]['baseDate']
-        d = date.fromisoformat(basedate[:4]+'-'+basedate[4:6]+'-'+basedate[6:])
-        baseTime = weather_info[1]['baseTime']
-        t = time.fromisoformat(baseTime[:2]+":"+baseTime[2:])
-        base_time = datetime.combine(d, t)
+            fcstdate = weather_info[(j-1)*12+j]['fcstDate']
+            d = date.fromisoformat(fcstdate[:4] + '-' + fcstdate[4:6] + '-' + fcstdate[6:])
+            fcstTime = weather_info[(j-1)*12+j]['fcstTime']
+            t = time.fromisoformat(fcstTime[:2] + ":" + fcstTime[2:])
+            fcst_time = datetime.combine(d, t)
 
-        fcstdate = weather_info[1]['fcstDate']
-        d = date.fromisoformat(fcstdate[:4]+'-'+fcstdate[4:6]+'-'+fcstdate[6:])
-        fcstTime = weather_info[1]['fcstTime']
-        t = time.fromisoformat(fcstTime[:2] + ":" + fcstTime[2:])
-        fcst_time = datetime.combine(d, t)
-
-        for i in range(0,11):
-            if weather_info[i]['category'] == 'TMP':
-                tmp = weather_info[i]['fcstValue']
-            elif weather_info[i]['category'] == 'POP':
-                pop = weather_info[i]['fcstValue']
-        json_object = {'basetime': base_time.strftime('%Y-%m-%dT%H:%M'), 'fcstTime': fcst_time.strftime('%Y-%m-%dT%H:%M'), 'temp': tmp, 'rain': int(pop)}
-        send_data = json.dumps(json_object)
-        print(send_data)
-        headers = {'Content-type': 'application/json', 'Accept': 'text/plain'}
-        print(requests.post("http://sami.works:8000/api/weather", data=json.dumps(json_object), headers=headers))
+            for i in range(0,11):
+                if weather_info[i*j]['category'] == 'TMP':
+                    tmp = weather_info[i*j]['fcstValue']
+                elif weather_info[i*j]['category'] == 'POP':
+                    pop = weather_info[i*j]['fcstValue']
+            json_object = {'basetime': base_time.strftime('%Y-%m-%dT%H:%M'), 'fcstTime': fcst_time.strftime('%Y-%m-%dT%H:%M'), 'temp': tmp, 'rain': int(pop)}
+            send_data = json.dumps(json_object)
+            print(send_data)
+            print(requests.post(URL, data=json_object))
     except KeyError:
         print('API 호출 실패!')
 
@@ -110,7 +111,7 @@ def get_weather():
         base_date = now_date
     base_hour = get_base_time(now_hour)
 
-    num_of_rows = '12'
+    num_of_rows = '120'
     base_date = base_date
     base_time = base_hour
     nx, ny = grid(35.893684953438736, 128.61327796269993)

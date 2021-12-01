@@ -10,6 +10,8 @@ from django.http import HttpResponse
 from django import template
 # movie_api/movies/views.py
 from rest_framework import viewsets
+from rest_framework.decorators import action
+from rest_framework.response import Response
 from .serializers import WeatherSerializer
 from .models import Weather
 
@@ -49,3 +51,8 @@ def pages(request):
 class WeatherViewSet(viewsets.ModelViewSet):
     queryset = Weather.objects.all()
     serializer_class = WeatherSerializer
+
+    @action(detail=False, methods=['post'])
+    def delete_all(self, request):
+        Weather.objects.all().delete()
+        return Response('success')
