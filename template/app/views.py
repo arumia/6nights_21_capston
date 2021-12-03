@@ -56,3 +56,9 @@ class WeatherViewSet(viewsets.ModelViewSet):
     def delete_all(self, request):
         Weather.objects.all().delete()
         return Response('success')
+
+    # @action(detail=False, methods=['get'])
+    # def get_weather(self, request):
+    #     queryset = Weather.objects.all().values("fcstTime", "temp", "rain")
+    #     serializer = WeatherSerializer()
+    #     return Response(serializer_class.data)

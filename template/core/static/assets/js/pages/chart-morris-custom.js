@@ -1,7 +1,37 @@
 'use strict';
 $(document).ready(function() {
     setTimeout(function() {
+    function getWeather(lat, lon) {
+        fetch(`http://sami.works:8000/api/weather/`)
+        .then(res => res.json())
+        .then(data => {
+            let arrItem1 = new Array();
+            console.log(data);
+            for(let i = 0; i <data.length; i++){
+                let Item1 = new Object();
+                Item1.temp = data[i].temp;
+                Item1.fcstTime = data[i].fcstTime;
+                arrItem1.push(Item1);
+                console.log(arrItem1);
+            }
 
+             Morris.Line({
+                element: 'morris-line-chart',
+                data: arrItem1,
+                xkey: 'fcstTime',
+                redraw: true,
+                resize: true,
+                smooth: false,
+                ykeys: ['temp'],
+                hideHover: 'auto',
+                responsive:true,
+                labels: ['예상기온'],
+                lineColors: ['#1de9b6', '#04a9f5']
+            });
+            // [ area-angle-chart ] end
+        })
+    }
+    getWeather();
     // [ area-angle-chart ] start
     Morris.Area({
         element: 'morris-area-chart',
@@ -104,54 +134,54 @@ $(document).ready(function() {
     // [ area-smooth-chart ] end
 
     // [ line-angle-chart ] Start
-    Morris.Line({
-        element: 'morris-line-chart',
-        data: [{
-                y: '2006',
-                a: 20,
-                b: 10
-            },
-            {
-                y: '2007',
-                a: 55,
-                b: 45
-            },
-            {
-                y: '2008',
-                a: 45,
-                b: 35
-            },
-            {
-                y: '2009',
-                a: 75,
-                b: 65
-            },
-            {
-                y: '2010',
-                a: 50,
-                b: 40
-            },
-            {
-                y: '2011',
-                a: 75,
-                b: 65
-            },
-            {
-                y: '2012',
-                a: 100,
-                b: 90
-            }
-        ],
-        xkey: 'y',
-        redraw: true,
-        resize: true,
-        smooth: false,
-        ykeys: ['a', 'b'],
-        hideHover: 'auto',
-        responsive:true,
-        labels: ['Series A', 'Series B'],
-        lineColors: ['#1de9b6', '#04a9f5']
-    });
+//    Morris.Line({
+//        element: 'morris-line-chart',
+//        data: [{
+//                y: '2006',
+//                a: 20,
+//                b: 10
+//            },
+//            {
+//                y: '2007',
+//                a: 55,
+//                b: 45
+//            },
+//            {
+//                y: '2008',
+//                a: 45,
+//                b: 35
+//            },
+//            {
+//                y: '2009',
+//                a: 75,
+//                b: 65
+//            },
+//            {
+//                y: '2010',
+//                a: 50,
+//                b: 40
+//            },
+//            {
+//                y: '2011',
+//                a: 75,
+//                b: 65
+//            },
+//            {
+//                y: '2012',
+//                a: 100,
+//                b: 90
+//            }
+//        ],
+//        xkey: 'y',
+//        redraw: true,
+//        resize: true,
+//        smooth: false,
+//        ykeys: ['a', 'b'],
+//        hideHover: 'auto',
+//        responsive:true,
+//        labels: ['Series A', 'Series B'],
+//        lineColors: ['#1de9b6', '#04a9f5']
+//    });
     // [ line-angle-chart ] end
 
     // [ bar-stacked ] chart start
