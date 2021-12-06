@@ -5,19 +5,24 @@ $(document).ready(function() {
         fetch(`http://sami.works:8000/api/weather/`)
         .then(res => res.json())
         .then(data => {
-            let arrItem1 = new Array();
+            let tempArray = new Array();
+            let rainArray = new Array();
             console.log(data);
             for(let i = 0; i <data.length; i++){
                 let Item1 = new Object();
+                let Item2 = new Object();
                 Item1.temp = data[i].temp;
                 Item1.fcstTime = data[i].fcstTime;
-                arrItem1.push(Item1);
-                console.log(arrItem1);
+                Item2.fcstTime = data[i].fcstTime;
+                Item2.rain = data[i].rain;
+                tempArray.push(Item1);
+                rainArray.push(Item2);
+                console.log(tempArray);
             }
 
              Morris.Line({
                 element: 'morris-line-chart',
-                data: arrItem1,
+                data: tempArray,
                 xkey: 'fcstTime',
                 redraw: true,
                 resize: true,
@@ -29,6 +34,25 @@ $(document).ready(function() {
                 lineColors: ['#1de9b6', '#04a9f5']
             });
             // [ area-angle-chart ] end
+
+            // [ bar-stacked ] chart start
+            Morris.Area({
+                element: 'morris-bar-stacked-chart',
+                data: rainArray,
+                lineColors: ['#04a9f5'],
+                xkey: 'fcstTime',
+                ymax: 100,
+                ykeys: ['rain'],
+                labels: ['강수확률'],
+                pointSize: 0,
+                lineWidth: 0,
+                resize: true,
+                fillOpacity: 0.9,
+                responsive:true,
+                behaveLikeLine: true,
+                hideHover: 'auto'
+            });
+            // [ bar-stacked ] chart end
         })
     }
     getWeather();
@@ -183,52 +207,22 @@ $(document).ready(function() {
 //        lineColors: ['#1de9b6', '#04a9f5']
 //    });
     // [ line-angle-chart ] end
-
-    // [ bar-stacked ] chart start
-    Morris.Bar({
-        element: 'morris-bar-stacked-chart',
-        data: [{
-                y: '2017',
-                a: 50,
-                b: 40,
-                c: 35,
-            },
-            {
-                y: '2018',
-                a: 75,
-                b: 65,
-                c: 60,
-            },
-            {
-                y: '2019',
-                a: 50,
-                b: 40,
-                c: 55,
-            },
-            {
-                y: '2020',
-                a: 75,
-                b: 65,
-                c: 85,
-            },
-            {
-                y: '2021',
-                a: 100,
-                b: 90,
-                c: 40,
-            }
-        ],
-        xkey: 'y',
-        stacked: true,
-        barSizeRatio: 0.50,
-        barGap: 3,
-        resize: true,
-        responsive:true,
-        ykeys: ['a', 'b', 'c'],
-        labels: ['Bar 1', 'Bar 2', 'Bar 3'],
-        barColors: ["0-#1de9b6-#1dc4e9", "0-#899FD4-#A389D4", "#04a9f5"]
-    });
-    // [ bar-stacked ] chart end
-
+//// [ bar-stacked ] chart start
+//            Morris.Bar({
+//                element: 'morris-bar-stacked-chart',
+//                data: rainArray,
+//                xkey: 'fcstTime',
+//////                stacked: true,
+//                barSizeRatio: 0.8,
+//                barGap: 5,
+//                redraw: true,
+//                resize: true,
+//                responsive:true,
+//                hideHover: 'auto',
+//                ykeys: ['rain'],
+//                labels: ['강수확률'],
+//                barColors: ["0-#1de9b6-#1dc4e9", "0-#899FD4-#A389D4", "#04a9f5"]
+//            });
+//            // [ bar-stacked ] chart end
         }, 700);
 });

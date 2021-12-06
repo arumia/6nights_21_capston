@@ -2,6 +2,7 @@ import math
 import json
 from datetime import datetime, time, date
 import requests
+from pytz import timezone
 
 
 def grid(lat, lng) :
@@ -51,7 +52,7 @@ def get_sky_info(data):
         URL = "http://127.0.0.1:8000/api/weather/"
         print(requests.post(URL+"delete_all/", data=""))
         weather_info = data['response']['body']['items']['item']
-        for j in range(1,11):
+        for j in range(1,20):
             basedate = weather_info[1]['baseDate']
             d = date.fromisoformat(basedate[:4] + '-' + basedate[4:6] + '-' + basedate[6:])
             baseTime = weather_info[1]['baseTime']
@@ -65,10 +66,10 @@ def get_sky_info(data):
             fcst_time = datetime.combine(d, t)
 
             for i in range(0,11):
-                if weather_info[i*j]['category'] == 'TMP':
-                    tmp = weather_info[i*j]['fcstValue']
-                elif weather_info[i*j]['category'] == 'POP':
-                    pop = weather_info[i*j]['fcstValue']
+                if weather_info[(j-1)*12+i]['category'] == 'TMP':
+                    tmp = weather_info[(j-1)*12+i]['fcstValue']
+                elif weather_info[(j-1)*12+i]['category'] == 'POP':
+                    pop = weather_info[(j-1)*12+i]['fcstValue']
             json_object = {'basetime': base_time.strftime('%Y-%m-%dT%H:%M'), 'fcstTime': fcst_time.strftime('%Y-%m-%dT%H:%M'), 'temp': tmp, 'rain': int(pop)}
             send_data = json.dumps(json_object)
             print(send_data)
@@ -80,38 +81,38 @@ def get_sky_info(data):
 def get_base_time(hour):
     hour = int(hour)
     if hour < 3:
-        temp_hour = '20'
-    elif hour < 6:
         temp_hour = '23'
-    elif hour < 9:
+    elif hour < 6:
         temp_hour = '02'
-    elif hour < 12:
+    elif hour < 9:
         temp_hour = '05'
-    elif hour < 15:
+    elif hour < 12:
         temp_hour = '08'
-    elif hour < 18:
+    elif hour < 15:
         temp_hour = '11'
-    elif hour < 21:
+    elif hour < 18:
         temp_hour = '14'
-    elif hour < 24:
+    elif hour < 21:
         temp_hour = '17'
+    elif hour < 24:
+        temp_hour = '20'
 
     return temp_hour + '00'
 
 
 def get_weather():
     service_key = 'pz9gPzY4v9gCNURAJcS9K%2BvxjzuNyizZ%2FE9%2B14mYgV3IauXIHkY71eIcK7d1zlwx3fP%2FG7uuxyU8FhS%2BX2vDTA%3D%3D'
-    now = datetime.now()
+    now = datetime.now(timezone('Asia/Seoul'))
     now_date = now.strftime('%Y%m%d')
     now_hour = int(now.strftime('%H'))
 
-    if now_hour < 6:
+    if now_hour < 2:
         base_date = str(int(now_date) - 1)
     else:
         base_date = now_date
     base_hour = get_base_time(now_hour)
 
-    num_of_rows = '120'
+    num_of_rows = '240'
     base_date = base_date
     base_time = base_hour
     nx, ny = grid(35.893684953438736, 128.61327796269993)
@@ -119,6 +120,7 @@ def get_weather():
     api_url = 'http://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getVilageFcst?serviceKey={}' \
               '&numOfRows={}&dataType={}&base_date={}&base_time={}&nx={}&ny={}'.format(
         service_key, num_of_rows, dataType, base_date, base_time, nx, ny)
+    print(api_url)
 
     data = requests.get(api_url)
     json_data = data.json()
