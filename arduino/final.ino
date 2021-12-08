@@ -51,6 +51,12 @@ void loop()
 {
   if(Serial.available())
   {
+    if(digitalRead(SWITCH_OGER) == LOW){
+      Serial.println("OGER switch up!");
+    }
+    if(digitalRead(SWITCH_UP) == LOW){
+        Serial.println("UP switch up!");
+    }
     char input = Serial.read();
 
     if(input == 'u') // 시리얼로 u 입력을 받았을 떄 위로 작동
@@ -91,6 +97,24 @@ void loop()
 //      StopAndPush();
     }
 
+    else if(input == 'p') // 시리얼로 u 입력을 받았을 떄 위로 작동
+    {
+    StopAndPush();
+    }
+
+    else if(input == 'b') // 시리얼로 u 입력을 받았을 떄 위로 작동
+    {
+      digitalWrite(EN3, HIGH); // 모터B설정
+      digitalWrite(EN4, LOW);
+      for(Push_speed=0; Push_speed<255; Push_speed++){
+        analogWrite(ENB, Push_speed);
+      }
+      delay(19000);          // 3초동안 정방향 회전
+      for(Push_speed; Push_speed>0; Push_speed--){
+        analogWrite(ENB, Push_speed);
+      }
+    }
+
     else if(input == 'd') //시리얼로 d 입력을 받았을 때 아레로 작동
     {
       Serial.print("echo: ");
@@ -108,12 +132,12 @@ void loop()
       }
 
       // 아래로 내리기
-      digitalWrite(DIR,HIGH);
-      digitalWrite(ENA,HIGH);
       flag = 0;
-      for (int i=0; i<50; i++)   //310이 최고 적절값
+      for (int i=0; i<20; i++)   //310이 최고 적절값
       {
         for (int j=0; j<1000; j++){
+          digitalWrite(DIR,HIGH);
+          digitalWrite(ENA,HIGH);
           digitalWrite(PUL,HIGH);
           delayMicroseconds(25);
           digitalWrite(PUL,LOW);
@@ -179,8 +203,8 @@ void InitPosition(){
 }
 
 void StopAndPush(){
-  digitalWrite(EN3, HIGH); // 모터B설정
-  digitalWrite(EN4, LOW);
+  digitalWrite(EN3, LOW); // 모터B설정
+  digitalWrite(EN4, HIGH);
   for(Push_speed=0; Push_speed<255; Push_speed++){
     analogWrite(ENB, Push_speed);
   }
@@ -190,8 +214,8 @@ void StopAndPush(){
   }
 
   // 모터A,B 역방향
-  digitalWrite(EN3, LOW); // 모터B설정
-  digitalWrite(EN4, HIGH);
+  digitalWrite(EN3, HIGH); // 모터B설정
+  digitalWrite(EN4, LOW);
   for(Push_speed=0; Push_speed<256; Push_speed++){
     analogWrite(ENB, Push_speed);
   }
