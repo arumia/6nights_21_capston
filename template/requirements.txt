@@ -13,3 +13,4 @@ django-cors-headers
 pyserial==3.4
 tornado
 djangorestframework
+requests
