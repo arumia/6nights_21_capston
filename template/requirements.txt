@@ -14,3 +14,4 @@ pyserial==3.4
 tornado
 djangorestframework
 requests
+pi-rc522

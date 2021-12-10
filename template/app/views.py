@@ -47,6 +47,27 @@ def pages(request):
         html_template = loader.get_template( 'page-500.html' )
         return HttpResponse(html_template.render(context, request))
 
+def working(request):
+    form = LoginForm(request.POST or None)
+
+    msg = None
+
+    if request.method == "POST":
+
+        if form.is_valid():
+            username = form.cleaned_data.get("username")
+            password = form.cleaned_data.get("password")
+            user = authenticate(username=username, password=password)
+            if user is not None:
+                login(request, user)
+                return redirect("/")
+            else:
+                msg = '가입하지 않은 아이디이거나,<br>잘못된 비밀번호입니다.'
+        else:
+            msg = 'Error validating the form'
+
+    return render(request, "accounts/login.html", {"form": form, "msg" : msg})
+
 
 class WeatherViewSet(viewsets.ModelViewSet):
     queryset = Weather.objects.all()

@@ -16,6 +16,8 @@ class Weather(models.Model):
     rain = models.IntegerField()
 
 class Work(models.Model):
+    uid = models.CharField(max_length=20)
     workTime = models.DateTimeField(default=now)
-    lat = models.FloatField()
-    lng = models.FloatField()
+    lat = models.FloatField(null=True)
+    lng = models.FloatField(null=True)
+    worker = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
