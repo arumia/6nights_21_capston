@@ -1,14 +1,16 @@
 (function() {
 
     const socket = new WebSocket('ws://localhost:8080/ws');
+    var received_data = $('#received-data');
      
     socket.onopen = function () {  
-      console.log('connected');
-      sendMessage({ method: 'open', args: { port: '/dev/ttyACM1', baudrate: 115200, msg: 'Port is opened' } });
+//      console.log('connected');
+      received_data.val(received_data.val() + "연결 시도중..." + '\n');
+      received_data.scrollTop(received_data[0].scrollHeight);
+      sendMessage({ method: 'open', args: { port: '/dev/ttyACM1', baudrate: 115200, msg: '연결 성공! 작동 대기중...' } });
     }; 
 
     socket.onmessage = function (message) {
-      var received_data = $('#received-data');
 
       if (message.data == 'Port name not found.') {
         $('#cmd-port').text('Open Port').removeClass('btn-danger').addClass('btn-success');
