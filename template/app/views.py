@@ -50,12 +50,8 @@ def pages(request):
         html_template = loader.get_template( 'page-500.html' )
         return HttpResponse(html_template.render(context, request))
 
-rdr = RFID()
 @csrf_exempt
 def rfid(request):
-    rdr.irq.clear()
-    rdr.cleanup()
-    del rdr
     rdr = RFID()
     dic = {}
     error = True
