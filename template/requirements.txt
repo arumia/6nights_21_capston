@@ -15,5 +15,5 @@ tornado
 djangorestframework
 requests
 pi-rc522
-celery
+django-celery-beat
 gpsd-py3
