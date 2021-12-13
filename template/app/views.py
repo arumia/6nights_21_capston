@@ -53,7 +53,7 @@ def pages(request):
 @csrf_exempt
 def rfid(request):
     rdr = RFID()
-
+    dic = []
     error = True
     while error:
         rdr.wait_for_tag()
@@ -64,7 +64,8 @@ def rfid(request):
             print("UID: " + str(uid))
     # Calls GPIO cleanup
     rdr.cleanup()
-    return JsonResponse(str(uid))
+    dic[uid] = str(uid)
+    return JsonResponse(dic)
 
 
 class WeatherViewSet(viewsets.ModelViewSet):
