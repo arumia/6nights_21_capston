@@ -16,7 +16,7 @@ $.ajax({
   //     uid = result["uid"];
   // },
   // 통신 error
-  error: function(e) { console.log('error:'+e.status);}
+  error: function(e) { received_data.val(received_data.val() + "NFC오류: NFC 접촉 후 새로고침 해주세요!"+'\n');}
 }).done(function(result) {
     received_data.val(received_data.val() + "NFC가 인식되었습니다: " + result["uid"] + "지금부터 작업이 가능합니다!"+'\n');
     uid = result["uid"];
