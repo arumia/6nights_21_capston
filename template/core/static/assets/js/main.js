@@ -7,29 +7,22 @@ var uid = null;        // x에 위에 '1'로 입력되는 값 저장
 $.ajax({
   type: 'POST',
   url: '/rfid/',
-  // data: {number:x},                    // x를 number라는 이름으로 views로 넘겨준다.
   dataType: 'json',
   async: true,
-  // 통신 성공
-  // success: function(result){
-  //     received_data.val(received_data.val() + "NFC가 인식되었습니다: " + result["uid"] + "지금부터 작업이 가능합니다!"+'\n');
-  //     uid = result["uid"];
-  // },
   // 통신 error
   error: function(e) { received_data.val(received_data.val() + "NFC오류: NFC 접촉 후 새로고침 해주세요!"+'\n');}
-}).done(function(result) {
+}).done(function(result) { // 통신 성공
     received_data.val(received_data.val() + "NFC가 인식되었습니다: " + result["uid"] + "지금부터 작업이 가능합니다!"+'\n');
     uid = result["uid"];
 });
 
 const socket = new WebSocket('ws://localhost:8080/ws');
 
-
 socket.onopen = function () {
 //      console.log('connected');
   received_data.val(received_data.val() + "연결 시도중..." + '\n');
   received_data.scrollTop(received_data[0].scrollHeight);
-  sendMessage({ method: 'open', args: { port: '/dev/ttyACM1', baudrate: 115200, msg: '연결 성공! 작동 대기중...' } });
+  sendMessage({ method: 'open', args: { port: '/dev/ttyACM1', baudrate: 115200, msg: '제어보드 연결 성공! 작동 대기중...' } });
 };
 
 socket.onmessage = function (message) {
