@@ -5,7 +5,7 @@ from celery import Celery
 # Celery 모듈을 위한 Django 기본세팅
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'core.settings')
 
-app = Celery('config')
+app = Celery('core', backend='rpc://', broker='pyamqp://')
 
 
 # 여기서 문자열을 사용하는것은 작업자가가 자식 프로세스 직렬화 구성을 하지 않는것을 의미합니다.
