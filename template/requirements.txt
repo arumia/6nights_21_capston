@@ -15,3 +15,5 @@ tornado
 djangorestframework
 requests
 pi-rc522
+celery
+gpsd-py3

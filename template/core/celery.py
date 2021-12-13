@@ -1,5 +1,6 @@
+from __future__ import absolute_import
 import os
-
+from celery.schedules import crontab
 from celery import Celery
 
 # Celery 모듈을 위한 Django 기본세팅
@@ -14,7 +15,6 @@ app.config_from_object('django.conf:settings', namespace='CELERY')
 
 # Django 에 등록된 모든 task 모듈을 로드합니다.
 app.autodiscover_tasks()
-
 
 @app.task(bind=True)
 def debug_task(self):

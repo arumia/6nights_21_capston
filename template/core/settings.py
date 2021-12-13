@@ -7,6 +7,7 @@ import os
 from decouple import config
 from unipath import Path
 import dj_database_url
+from celery.schedules import crontab
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = Path(__file__).parent
@@ -24,6 +25,7 @@ ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'sami.works', config('SERVER', defaul
 # Application definition
 
 INSTALLED_APPS = [
+    'django_celery_beat',
     'rest_framework',
     'corsheaders',
     'django.contrib.admin',
@@ -157,3 +159,16 @@ STATICFILES_DIRS = (
 CELERY_TIMEZONE = 'Asia/Seoul'
 CELERY_TASK_TRACK_STARTED = True
 CELERY_TASK_TIME_LIMIT = 30 * 60
+CELERY_ACCEPT_CONTENT = ['application/json']
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_SERIALIZER = 'json'
+
+# 아래 CELERY_BEAT_SCHEDULE는 하드코딩으로 beat를 이용해 주기 작업을 설정하는 방법이고
+# django_celery_beat를 이용하면 아래 하드코딩 없이 장고 어드민에서 동적 작업 가능
+CELERY_BEAT_SCHEDULE = {
+    'task-number-one': {
+        'task': 'core.tasks.get_weather',
+        'schedule': crontab(),
+        'args': (),
+    }
+}
