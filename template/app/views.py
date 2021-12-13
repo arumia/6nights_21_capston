@@ -65,7 +65,7 @@ def rfid(request):
             print(type(uid))
     # Calls GPIO cleanup
     rdr.cleanup()
-    dic[nfc_uid] = ', '.join(map(str, uid))
+    dic["uid"] = ', '.join(map(str, uid))
     return JsonResponse(dic)
 
 
