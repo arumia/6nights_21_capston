@@ -50,14 +50,13 @@ def pages(request):
         html_template = loader.get_template( 'page-500.html' )
         return HttpResponse(html_template.render(context, request))
 
+rdr = RFID()
 @csrf_exempt
 def rfid(request):
-    try:
-        rdr = RFID()
-    except:
-        rdr.irq.clear()
-        rdr.cleanup()
-        rdr = RFID()
+    rdr.irq.clear()
+    rdr.cleanup()
+    del rdr
+    rdr = RFID()
     dic = {}
     error = True
     while error:
@@ -71,7 +70,6 @@ def rfid(request):
     # Calls GPIO cleanup
     rdr.irq.clear()
     rdr.cleanup()
-    del rdr
     dic["uid"] = ', '.join(map(str, uid))
     return JsonResponse(dic)
 
