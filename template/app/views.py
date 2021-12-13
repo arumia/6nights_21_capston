@@ -18,8 +18,6 @@ from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 # from pirc522 import RFID
 
-rdr = RFID()
-
 @login_required(login_url="/login/")
 def index(request):
     
@@ -54,6 +52,7 @@ def pages(request):
 
 @csrf_exempt
 def rfid(request):
+    rdr = RFID()
     dic = {}
     error = True
     while error:
@@ -67,6 +66,7 @@ def rfid(request):
     # Calls GPIO cleanup
     rdr.irq.clear()
     rdr.cleanup()
+    del rdr
     dic["uid"] = ', '.join(map(str, uid))
     return JsonResponse(dic)
 
