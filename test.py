@@ -5,8 +5,6 @@ import gpsd
 # Connect to the local gpsd
 gpsd.connect()
 
-# Connect somewhere else
-gpsd.connect()
 
 # Get gps position
 packet = gpsd.get_current()
