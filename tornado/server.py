@@ -41,6 +41,7 @@ class WebSocketHandler(tornado.websocket.WebSocketHandler):
             input_queue.put(data['args']['data'])
 
     def on_close(self):
+        msg = serialport.close()
         print("connection closed")
         clients.remove(self)
 
