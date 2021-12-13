@@ -7,6 +7,7 @@ function getRFID(){
       url: '/rfid/',
       // data: {number:x},                    // x를 number라는 이름으로 views로 넘겨준다.
       dataType: 'json',
+      async: false,
       // 통신 성공
       success: function(result){
           received_data.val(received_data.val() + result[uid] + '\n');
