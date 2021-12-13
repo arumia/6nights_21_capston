@@ -64,6 +64,7 @@ def rfid(request):
             print("UID: " + str(uid))
             print(type(uid))
     # Calls GPIO cleanup
+    rdr.irq.clear()
     rdr.cleanup()
     dic["uid"] = ', '.join(map(str, uid))
     return JsonResponse(dic)
