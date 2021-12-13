@@ -2,7 +2,7 @@
 
     var received_data = $('#received-data');
 
-    received_data.val(received_data.val() + "NFC에 카드를 접촉해주세요..." + '\n');
+    received_data.val(received_data.val() + "초기화중..." + '\n');
 
     var uid = null;        // x에 위에 '1'로 입력되는 값 저장
     // ajax 통신
@@ -14,7 +14,7 @@
       async: true,
       // 통신 성공
       success: function(result){
-          received_data.val(received_data.val() + "NFC가 인식되었습니다: " + result["uid"] + '\n');
+          received_data.val(received_data.val() + "NFC가 인식되었습니다: " + result["uid"] + "지금부터 작업이 가능합니다!"+'\n');
           uid = result["uid"];
       },
       // 통신 error
@@ -67,31 +67,56 @@
     //   }
     // });
 
-    $('#message').on('keydown', function (evt) {
-      if (evt.keyCode == 13) {
-        $('#send-message').trigger('click');
-        return false;
-      }  
-    });
+    // $('#message').on('keydown', function (evt) {
+    //   if (evt.keyCode == 13) {
+    //     $('#send-message').trigger('click');
+    //     return false;
+    //   }
+    // });
 
     $('#send-message').on('click', function (evt) {
-        sendMessage({ method: 'send', args: { data: $('#message').val(), msg: false } });
+        if(uid!=null) {
+            sendMessage({method: 'send', args: {data: $('#message').val(), msg: false}});
+        }
+        else{
+            received_data.val(received_data.val() + "작업 시작전 NFC에 카드를 접촉해주세요..." + '\n');
+        }
     });
 
     $('#startbtn').on('click', function (evt) {
-        sendMessage({ method: 'send', args: { data: "d", msg: false } });
-        sendMessage({ method: 'send', args: { data: "u", msg: false } });
-        sendMessage({ method: 'send', args: { data: "p  ", msg: false } });
+        if(uid!=null) {
+            sendMessage({ method: 'send', args: { data: "d", msg: false } });
+            sendMessage({ method: 'send', args: { data: "u", msg: false } });
+            sendMessage({ method: 'send', args: { data: "p  ", msg: false } });
+        }
+        else{
+            received_data.val(received_data.val() + "작업 시작전 NFC에 카드를 접촉해주세요..." + '\n');
+        }
     });
     $('#testbtn').on('click', function (evt) {
+        if(uid!=null) {
         sendMessage({ method: 'send', args: { data: "d", msg: false } });
         sendMessage({ method: 'send', args: { data: "u", msg: false } });
+        }
+        else{
+            received_data.val(received_data.val() + "작업 시작전 NFC에 카드를 접촉해주세요..." + '\n');
+        }
     });
     $('#upbtn').on('click', function (evt) {
+        if(uid!=null) {
         sendMessage({ method: 'send', args: { data: "u", msg: false } });
+        }
+        else{
+            received_data.val(received_data.val() + "작업 시작전 NFC에 카드를 접촉해주세요..." + '\n');
+        }
     });
     $('#pushbtn').on('click', function (evt) {
+        if(uid!=null) {
         sendMessage({ method: 'send', args: { data: "p", msg: false } });
+        }
+        else{
+            received_data.val(received_data.val() + "작업 시작전 NFC에 카드를 접촉해주세요..." + '\n');
+        }
     });
     $('#clear').on('click', function(evt) {
         $('#received-data').val('');

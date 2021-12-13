@@ -39,8 +39,8 @@ if packet.mode >= 2:
     print("  Location: " + str(packet.position()))
     print(" Speed: " + str(packet.speed()))
     print("Position Precision: " + str(packet.position_precision()))
-    print("  Time UTC: " + str(packet.time_utc()))
-    print("Time Local: " + str(packet.time_local()))
+    # print("  Time UTC: " + str(packet.time_utc()))
+    # print("Time Local: " + str(packet.time_local()))
     print("   Map URL: " + str(packet.map_url()))
 else:
     print("  Location: NOT AVAILABLE")
