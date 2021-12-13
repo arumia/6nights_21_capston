@@ -53,7 +53,7 @@ def pages(request):
 @csrf_exempt
 def rfid(request):
     rdr = RFID()
-    dic = []
+    dic = {}
     error = True
     while error:
         rdr.wait_for_tag()
@@ -65,7 +65,7 @@ def rfid(request):
             print(type(uid))
     # Calls GPIO cleanup
     rdr.cleanup()
-    dic[uid] = str(uid)
+    dic[id] = ', '.join(map(str, uid))
     return JsonResponse(dic)
 
 

@@ -9,8 +9,8 @@ function getRFID(){
       dataType: 'json',
       // 통신 성공
       success: function(result){
-          received_data.val(received_data.val() + result[uid] + '\n');
-        $('#test_view').html('<p>' + result[uid] + '</p>');
+          received_data.val(received_data.val() + result[id] + '\n');
+        $('#test_view').html('<p>' + result[id] + '</p>');
       },
       // 통신 error
       error: function(e) { console.log('error:'+e.status);}
