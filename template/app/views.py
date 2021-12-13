@@ -62,6 +62,7 @@ def rfid(request):
             print("Tag detected")
             (error, uid) = rdr.anticoll()
             print("UID: " + str(uid))
+            print(type(uid))
     # Calls GPIO cleanup
     rdr.cleanup()
     dic[uid] = str(uid)
