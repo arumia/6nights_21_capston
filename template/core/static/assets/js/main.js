@@ -10,8 +10,7 @@ function getRFID(){
       async: false,
       // 통신 성공
       success: function(result){
-          received_data.val(received_data.val() + result[uid] + '\n');
-        $('#test_view').html('<p>' + result[uid] + '</p>');
+          received_data.val(received_data.val() + result["uid"] + '\n');
       },
       // 통신 error
       error: function(e) { console.log('error:'+e.status);}
