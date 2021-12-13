@@ -52,31 +52,47 @@ def get_sky_info(data):
         URL = "http://127.0.0.1:8000/api/weather/"
         print(requests.post(URL+"delete_all/", data=""))
         weather_info = data['response']['body']['items']['item']
-        for j in range(1,20):
-            basedate = weather_info[1]['baseDate']
-            d = date.fromisoformat(basedate[:4] + '-' + basedate[4:6] + '-' + basedate[6:])
-            baseTime = weather_info[1]['baseTime']
-            t = time.fromisoformat(baseTime[:2] + ":" + baseTime[2:])
-            base_time = datetime.combine(d, t)
+        basedate = weather_info[0]['baseDate']
+        d = date.fromisoformat(basedate[:4] + '-' + basedate[4:6] + '-' + basedate[6:])
+        baseTime = weather_info[0]['baseTime']
+        t = time.fromisoformat(baseTime[:2] + ":" + baseTime[2:])
+        base_time = datetime.combine(d, t)
 
-            fcstdate = weather_info[(j-1)*12+j]['fcstDate']
-            d = date.fromisoformat(fcstdate[:4] + '-' + fcstdate[4:6] + '-' + fcstdate[6:])
-            fcstTime = weather_info[(j-1)*12+j]['fcstTime']
-            t = time.fromisoformat(fcstTime[:2] + ":" + fcstTime[2:])
-            fcst_time = datetime.combine(d, t)
+        fcstdate = weather_info[0]['fcstDate']
+        d = date.fromisoformat(fcstdate[:4] + '-' + fcstdate[4:6] + '-' + fcstdate[6:])
+        fcstTime = weather_info[0]['fcstTime']
+        t = time.fromisoformat(fcstTime[:2] + ":" + fcstTime[2:])
+        fcst_time = datetime.combine(d, t)
+        tmp = ''
+        pop = ''
+        for i in range(0,240):
+            if fcstdate == weather_info[i]['fcstDate'] and fcstTime == weather_info[i]['fcstTime']:
+                if weather_info[i]['category'] == 'TMP':
+                    tmp = weather_info[i]['fcstValue']
+                elif weather_info[i]['category'] == 'POP':
+                    pop = weather_info[i]['fcstValue']
+            else:
+                json_object = {'basetime': base_time.strftime('%Y-%m-%dT%H:%M'),
+                               'fcstTime': fcst_time.strftime('%Y-%m-%dT%H:%M'), 'temp': tmp, 'rain': int(pop)}
+                send_data = json.dumps(json_object)
+                print(send_data)
+                print(requests.post(URL, data=json_object))
 
-            for i in range(0,11):
-                if weather_info[(j-1)*12+i]['category'] == 'TMP':
-                    tmp = weather_info[(j-1)*12+i]['fcstValue']
-                elif weather_info[(j-1)*12+i]['category'] == 'POP':
-                    pop = weather_info[(j-1)*12+i]['fcstValue']
-            json_object = {'basetime': base_time.strftime('%Y-%m-%dT%H:%M'), 'fcstTime': fcst_time.strftime('%Y-%m-%dT%H:%M'), 'temp': tmp, 'rain': int(pop)}
-            send_data = json.dumps(json_object)
-            print(send_data)
-            print(requests.post(URL, data=json_object))
+                fcstdate = weather_info[i]['fcstDate']
+                d = date.fromisoformat(fcstdate[:4] + '-' + fcstdate[4:6] + '-' + fcstdate[6:])
+                fcstTime = weather_info[i]['fcstTime']
+                t = time.fromisoformat(fcstTime[:2] + ":" + fcstTime[2:])
+                fcst_time = datetime.combine(d, t)
+                if weather_info[i]['category'] == 'TMP':
+                    tmp = weather_info[i]['fcstValue']
+                    print(tmp)
+                elif weather_info[i]['category'] == 'POP':
+                    pop = weather_info[i]['fcstValue']
+                    print(pop)
     except KeyError:
         print('API 호출 실패!')
 
+    return "success!"
 
 def get_base_time(hour):
     hour = int(hour)
