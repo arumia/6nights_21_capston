@@ -13,12 +13,15 @@
       dataType: 'json',
       async: true,
       // 통신 성공
-      success: function(result){
-          received_data.val(received_data.val() + "NFC가 인식되었습니다: " + result["uid"] + "지금부터 작업이 가능합니다!"+'\n');
-          uid = result["uid"];
-      },
+      // success: function(result){
+      //     received_data.val(received_data.val() + "NFC가 인식되었습니다: " + result["uid"] + "지금부터 작업이 가능합니다!"+'\n');
+      //     uid = result["uid"];
+      // },
       // 통신 error
       error: function(e) { console.log('error:'+e.status);}
+    }).done(function(result) {
+        received_data.val(received_data.val() + "NFC가 인식되었습니다: " + result["uid"] + "지금부터 작업이 가능합니다!"+'\n');
+        uid = result["uid"];
     });
 
     const socket = new WebSocket('ws://localhost:8080/ws');
