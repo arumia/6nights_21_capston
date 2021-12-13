@@ -4,7 +4,6 @@ import json
 from datetime import datetime, time, date
 import requests
 from pytz import timezone
-from pirc522 import RFID
 
 def grid(lat, lng) :
 

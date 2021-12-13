@@ -1,7 +1,30 @@
+function getRFID(){
+    var received_data = $('#received-data');
+    // var x = $("#test_value").val();        // x에 위에 '1'로 입력되는 값 저장
+    // ajax 통신
+    $.ajax({
+      type: 'POST',
+      url: '/rfid/',
+      // data: {number:x},                    // x를 number라는 이름으로 views로 넘겨준다.
+      dataType: 'json',
+      // 통신 성공
+      success: function(result){
+          received_data.val(received_data.val() + result + '\n');
+        $('#test_view').html('<p>' + result[x] + '</p>');
+      },
+      // 통신 error
+      error: function(e) { console.log('error:'+e.status);}
+    });
+}
 (function() {
 
-    const socket = new WebSocket('ws://localhost:8080/ws');
     var received_data = $('#received-data');
+
+    received_data.val(received_data.val() + "NFC에 카드를 접촉해주세요..." + '\n');
+    getRFID();
+
+    const socket = new WebSocket('ws://localhost:8080/ws');
+
      
     socket.onopen = function () {  
 //      console.log('connected');

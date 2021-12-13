@@ -14,6 +14,9 @@ from rest_framework.decorators import action
 from rest_framework.response import Response
 from .serializers import WeatherSerializer
 from .models import Weather
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+# from pirc522 import RFID
 
 @login_required(login_url="/login/")
 def index(request):
@@ -47,26 +50,31 @@ def pages(request):
         html_template = loader.get_template( 'page-500.html' )
         return HttpResponse(html_template.render(context, request))
 
-def working(request):
-    form = LoginForm(request.POST or None)
+@csrf_exempt
+def rfid(request):
+    rdr = RFID()
 
-    msg = None
+    error = True
+    while error:
+        rdr.wait_for_tag()
+        (error, tag_type) = rdr.request()
+        if not error:
+            print("Tag detected")
+            (error, uid) = rdr.anticoll()
+            if not error:
+                print("UID: " + str(uid))
+                # Select Tag is required before Auth
+                if not rdr.select_tag(uid):
+                    # Auth for block 10 (block 2 of sector 2) using default shipping key A
+                    if not rdr.card_auth(rdr.auth_a, 10, [0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF], uid):
+                        # This will print something like (False, [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
+                        print("Reading block 10: " + str(rdr.read(10)))
+                        # Always stop crypto1 when done working
+                        rdr.stop_crypto()
 
-    if request.method == "POST":
-
-        if form.is_valid():
-            username = form.cleaned_data.get("username")
-            password = form.cleaned_data.get("password")
-            user = authenticate(username=username, password=password)
-            if user is not None:
-                login(request, user)
-                return redirect("/")
-            else:
-                msg = '가입하지 않은 아이디이거나,<br>잘못된 비밀번호입니다.'
-        else:
-            msg = 'Error validating the form'
-
-    return render(request, "accounts/login.html", {"form": form, "msg" : msg})
+    # Calls GPIO cleanup
+    rdr.cleanup()
+    return JsonResponse(str(uid))
 
 
 class WeatherViewSet(viewsets.ModelViewSet):
