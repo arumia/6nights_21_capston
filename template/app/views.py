@@ -52,7 +52,12 @@ def pages(request):
 
 @csrf_exempt
 def rfid(request):
-    rdr = RFID()
+    try:
+        rdr = RFID()
+    except:
+        rdr.irq.clear()
+        rdr.cleanup()
+        rdr = RFID()
     dic = {}
     error = True
     while error:
