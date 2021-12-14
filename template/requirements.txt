@@ -14,6 +14,7 @@ pyserial==3.4
 tornado
 djangorestframework
 requests
-pi-rc522
 django-celery-beat
+celery
 gpsd-py3
+pi-rc522

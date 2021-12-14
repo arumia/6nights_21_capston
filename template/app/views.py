@@ -50,6 +50,11 @@ def pages(request):
         html_template = loader.get_template( 'page-500.html' )
         return HttpResponse(html_template.render(context, request))
 
+# @login_required(login_url="/login/")
+# def farmland_info(request, job_id):
+#
+
+
 @csrf_exempt
 def rfid(request):
     rdr = RFID()
@@ -69,6 +74,24 @@ def rfid(request):
     dic["uid"] = ', '.join(map(str, uid))
     return JsonResponse(dic)
 
+@csrf_exempt
+def job(request):
+    rdr = RFID()
+    dic = {}
+    error = True
+    while error:
+        rdr.wait_for_tag()
+        (error, tag_type) = rdr.request()
+        if not error:
+            print("Tag detected")
+            (error, uid) = rdr.anticoll()
+            print("UID: " + str(uid))
+            print(type(uid))
+    # Calls GPIO cleanup
+    rdr.irq.clear()
+    rdr.cleanup()
+    dic["uid"] = ', '.join(map(str, uid))
+    return JsonResponse(dic)
 
 class WeatherViewSet(viewsets.ModelViewSet):
     queryset = Weather.objects.all()

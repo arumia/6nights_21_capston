@@ -18,6 +18,8 @@ PyCharm 2021.1
 
 docker run -d -p 5672:5672 rabbitmq
 
+celery -A core worker -l info -B
+
 Python 3.9.4
 
 ### 실행 환경
