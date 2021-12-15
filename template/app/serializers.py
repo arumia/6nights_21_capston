@@ -11,4 +11,4 @@ class WeatherSerializer(serializers.ModelSerializer):
 class WorkSerializer(serializers.ModelSerializer):
     class Meta:
         model = Work  # 모델 설정
-        fields = ('id', 'uid', 'workTime', 'lat', 'lat', 'worker')  # 필드 설정
+        fields = ('id', 'uid', 'workTime', 'lat', 'lng', 'worker')  # 필드 설정
