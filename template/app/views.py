@@ -16,7 +16,7 @@ from .serializers import WeatherSerializer
 from .models import Weather, Work
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
-# from pirc522 import RFID
+from pirc522 import RFID
 from .tasks import getgps
 
 @login_required(login_url="/login/")
