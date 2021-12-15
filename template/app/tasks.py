@@ -9,6 +9,7 @@ def getgps():
         # Get gps position
         packet = gpsd.get_current()
         if(packet.mode):
+            print("lat lng: "+packet.lat+", "+ packet.lon)
             return True, packet.lat, packet.lon
         else:
             continue
