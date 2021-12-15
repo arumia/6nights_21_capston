@@ -10,6 +10,7 @@ from app.views import WeatherViewSet
 
 router = routers.DefaultRouter()
 router.register('weather', WeatherViewSet) # prefix = movies , viewset = MovieViewSet
+router.register('work', WorkViewSet) # prefix = movies , viewset = MovieViewSet
 
 urlpatterns = [
     path('admin/', admin.site.urls),          # Django admin route
