@@ -13,10 +13,11 @@ from rest_framework import viewsets
 from rest_framework.decorators import action
 from rest_framework.response import Response
 from .serializers import WeatherSerializer
-from .models import Weather
+from .models import Weather, Work
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 # from pirc522 import RFID
+from .tasks import getgps
 
 @login_required(login_url="/login/")
 def index(request):
@@ -75,23 +76,15 @@ def rfid(request):
     return JsonResponse(dic)
 
 @csrf_exempt
+@login_required(login_url="/login/")
 def job(request):
-    rdr = RFID()
-    dic = {}
-    error = True
-    while error:
-        rdr.wait_for_tag()
-        (error, tag_type) = rdr.request()
-        if not error:
-            print("Tag detected")
-            (error, uid) = rdr.anticoll()
-            print("UID: " + str(uid))
-            print(type(uid))
-    # Calls GPIO cleanup
-    rdr.irq.clear()
-    rdr.cleanup()
-    dic["uid"] = ', '.join(map(str, uid))
-    return JsonResponse(dic)
+    success, lat, lon = getgps()
+    if success:
+        uid = request.POST('uid')
+        user = request.user
+        work = Work(uid=uid, lat=lat, lng=lon, worker=user)
+        work.save()
+    return success
 
 class WeatherViewSet(viewsets.ModelViewSet):
     queryset = Weather.objects.all()

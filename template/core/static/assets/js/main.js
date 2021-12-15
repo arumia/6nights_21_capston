@@ -115,3 +115,19 @@ $('#pushbtn').on('click', function (evt) {
 $('#clear').on('click', function(evt) {
     $('#received-data').val('');
 });
+$('#endjob').on('click', function(evt) {
+    if(uid!=null){
+        $.ajax({
+          type: 'POST',
+          url: '/job/',
+          dataType: 'json',
+          async: true,
+          data: {'uid':uid}
+          // 통신 error
+          error: function(e) { received_data.val(received_data.val() + "데이터 저장 요류: 작업 종료 버튼을 다시 눌러주세요."+'\n');}
+        }).done(function(result) { // 통신 성공
+            alert('작업내역이 저장되었습니다.');
+            location.href="/index.html";
+        });
+    }
+});
