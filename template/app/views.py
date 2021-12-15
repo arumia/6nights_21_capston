@@ -75,8 +75,8 @@ def rfid(request):
     dic["uid"] = ', '.join(map(str, uid))
     return JsonResponse(dic)
 
+
 @csrf_exempt
-@login_required(login_url="/login/")
 def job(request):
     success, lat, lon = getgps()
     if success:
