@@ -18,6 +18,7 @@ from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from pirc522 import RFID
 from .tasks import getgps
+import json
 
 @login_required(login_url="/login/")
 def index(request):
@@ -81,7 +82,8 @@ def job(request):
     result = {}
     success, lat, lon = getgps()
     if success:
-        uid = request.POST.get('uid')
+        body = json.loads(request.body)
+        uid = body['uid']
         user = request.user
         work = Work(uid=uid, lat=lat, lng=lon, worker=user)
         work.save()
