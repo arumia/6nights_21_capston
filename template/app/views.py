@@ -12,7 +12,7 @@ from django import template
 from rest_framework import viewsets
 from rest_framework.decorators import action
 from rest_framework.response import Response
-from .serializers import WeatherSerializer
+from .serializers import WeatherSerializer, WorkSerializer
 from .models import Weather, Work
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
@@ -102,3 +102,12 @@ class WeatherViewSet(viewsets.ModelViewSet):
     #     queryset = Weather.objects.all().values("fcstTime", "temp", "rain")
     #     serializer = WeatherSerializer()
     #     return Response(serializer_class.data)
+
+class WorkViewSet(viewsets.ModelViewSet):
+    queryset = Work.objects.all()
+    serializer_class = WorkSerializer
+
+    @action(detail=False, methods=['post'])
+    def delete_all(self, request):
+        Work.objects.all().delete()
+        return Response('success')
