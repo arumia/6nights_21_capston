@@ -76,7 +76,7 @@ def rfid(request):
     return JsonResponse(dic)
 
 
-@csrf_exempt
+@login_required(login_url="/login/")
 def job(request):
     success, lat, lon = getgps()
     if success:
