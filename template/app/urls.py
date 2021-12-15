@@ -14,6 +14,7 @@ urlpatterns = [
 
     # Matches any html file
     path("rfid/", views.rfid, name="rfid"),
+    path("job/", views.job, name="job"),
     re_path(r'^.*\.*', views.pages, name='pages'),
 
 ]
