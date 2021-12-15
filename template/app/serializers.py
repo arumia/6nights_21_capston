@@ -1,7 +1,7 @@
 # movie_api/movies/serializers.py
 
 from rest_framework import serializers
-from .models import Weather
+from .models import Weather, Work
 
 class WeatherSerializer(serializers.ModelSerializer):
     class Meta:
