@@ -81,7 +81,7 @@ def job(request):
     result = {}
     success, lat, lon = getgps()
     if success:
-        uid = request.POST('uid')
+        uid = request.POST.get('uid')
         user = request.user
         work = Work(uid=uid, lat=lat, lng=lon, worker=user)
         work.save()
