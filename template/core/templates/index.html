@@ -283,7 +283,10 @@
         alert('작업을 중지합니다.')
     }
     function time(){
-        var time= new Date(); //시간받기위해서 new date
+        const now = new Date(); // 현재 시간
+        const utcNow = now.getTime() + (now.getTimezoneOffset() * 60 * 1000); // 현재 시간을 utc로 변환한 밀리세컨드값
+        const koreaTimeDiff = 9 * 60 * 60 * 1000; // 한국 시간은 UTC보다 9시간 빠름(9시간의 밀리세컨드 표현)
+        const time = new Date(utcNow + koreaTimeDiff);
         document.getElementById("now").innerHTML='<i class="feather icon-calendar text-c-green f-30 m-r-10"></i>'+time.getFullYear()+"년 "+(time.getMonth()+1)+"월 "+time.getDate()+"일 "+time.getHours()+":"+time.getMinutes();
         setInterval("time()",1000);     //1초 지난후 time()실행
     }
