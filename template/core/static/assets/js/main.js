@@ -130,5 +130,7 @@ $('#endjob').on('click', function(evt) {
             location.href="/index.html";
         });
     }
-    alert('NFC카드부터 접촉해 주세요.');
+    else{
+        alert('NFC카드부터 접촉해 주세요.');
+    }
 });

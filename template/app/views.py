@@ -78,13 +78,15 @@ def rfid(request):
 
 @login_required(login_url="/login/")
 def job(request):
+    result = {}
     success, lat, lon = getgps()
     if success:
         uid = request.POST('uid')
         user = request.user
         work = Work(uid=uid, lat=lat, lng=lon, worker=user)
         work.save()
-    return success
+    result['success'] = success
+    return JsonResponse(result)
 
 class WeatherViewSet(viewsets.ModelViewSet):
     queryset = Weather.objects.all()
