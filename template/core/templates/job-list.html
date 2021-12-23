@@ -1,0 +1,157 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} UI Tables {% endblock %} 
+
+<!-- Specific CSS goes HERE -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+
+<div class="pcoded-content">
+    <div class="pcoded-inner-content">
+        <!-- [ breadcrumb ] start -->
+        <div class="page-header">
+            <div class="page-block">
+                <div class="row align-items-center">
+                    <div class="col-md-12">
+                        <div class="page-header-title">
+                            <h5 class="m-b-10">Job-list</h5>
+                        </div>
+                        <ul class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="index.html"><i class="feather icon-home"></i></a></li>
+                            <li class="breadcrumb-item"><a href="#!">Tables</a></li>
+                            <li class="breadcrumb-item"><a href="javascript:">작업 내역</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- [ breadcrumb ] end -->
+        <div class="main-body">
+            <div class="page-wrapper">
+                <!-- [ Main Content ] start -->
+                <div class="row">
+                    <!-- [ basic-table ] start -->
+                    <div class="col-xl-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h5>Sam-I(prototype)</h5>
+                                <span class="d-block m-t-5">담당자(유용운): 010-2222-2222</span>
+                            </div>
+                            <div class="card-block table-border-style">
+                                <div class="table-responsive">
+                                    <table class="table table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th>작업번호</th>
+                                                <th>NFC 식별자</th>
+                                                <th>작업시간</th>
+                                                <th>작업 위치</th>
+                                                <th>작업자</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        {% if work_list %}
+                                            <script>
+                                            function AddrFromCoords(lat, lng, callback) {
+                                                var geocoder = new kakao.maps.services.Geocoder();
+                                                // 좌표로 법정동 상세 주소 정보를 요청합니다
+                                                geocoder.coord2Address(lng, lat, callback);
+                                            }
+                                            </script>
+                                            {% for Work in work_list %}
+                                            <tr>
+                                                <th scope="row">{{ Work.id }}</th>
+                                                <td>{{ Work.uid }}</td>
+                                                <td>{{ Work.workTime }}</td>
+                                                <td id="{{Work.id}}">
+                                                    <script>
+                                                    AddrFromCoords({{ Work.lat }}, {{ Work.lng }}, function(result, status) {
+                                                        if (status === kakao.maps.services.Status.OK) {
+                                                            document.getElementById("{{Work.id}}").innerText = result[0].address.address_name;
+                                                        }
+                                                    });
+                                                    </script>
+                                                </td>
+                                                <td>{{ Work.worker.username }}</td>
+                                            </tr>
+                                            {% endfor %}
+                                        {% else %}
+                                            <p>질문이 없습니다.</p>
+                                        {% endif %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- [ basic-table ] end -->
+
+                    <!-- [ Hover-table ] start -->
+                    <div class="col-xl-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h5>(사)고향감</h5>
+                                <span class="d-block m-t-5">담당자(김현우): 010-3333-3333</span>
+                            </div>
+                            <div class="card-block table-border-style">
+                                <div class="table-responsive">
+                                    <table class="table table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th>년도</th>
+                                                <th>작물</th>
+                                                <th>수령</th>
+                                                <th>작물수</th>
+                                                <th>최근병해충</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <th scope="row">2017</th>
+                                                <td>감나무(조완)</td>
+                                                <td>2년</td>
+                                                <td>1204그루</td>
+                                                <td>없음</td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row">2018</th>
+                                                <td>감나무(조완)</td>
+                                                <td>3년</td>
+                                                <td>1183그루</td>
+                                                <td>없음</td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row">2020</th>
+                                                <td>감나무(조완)</td>
+                                                <td>4년</td>
+                                                <td>1024그루</td>
+                                                <td>없음</td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row">2021</th>
+                                                <td>감나무(조완)</td>
+                                                <td>5년</td>
+                                                <td>1024그루</td>
+                                                <td>없음</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- [ Hover-table ] end -->
+                </div>
+                <!-- [ Main Content ] end -->
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}
+
+{% endblock javascripts %}

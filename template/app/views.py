@@ -16,7 +16,7 @@ from .serializers import WeatherSerializer, WorkSerializer
 from .models import Weather, Work
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
-from pirc522 import RFID
+#from pirc522 import RFID
 from .tasks import getgps
 import json
 
@@ -50,6 +50,38 @@ def pages(request):
     except:
     
         html_template = loader.get_template( 'page-500.html' )
+        return HttpResponse(html_template.render(context, request))
+
+
+@login_required(login_url="/login/")
+def job_list(request):
+    context = {}
+    # All resource paths end in .html.
+    # Pick out the html file name from the url. And load that template.
+    try:
+
+        load_template = request.path.split('/')[-1]
+        print(load_template)
+        work_list = Work.objects.order_by('-id')
+        print(work_list)
+        # context = {'work_list': work_list}
+        context['segment'] = load_template
+        # print(context)
+        context['work_list'] = work_list
+        print(context)
+        html_template = loader.get_template(load_template)
+
+        # return render(request, 'job-list.html', context)
+        return HttpResponse(html_template.render(context, request))
+
+    except template.TemplateDoesNotExist:
+
+        html_template = loader.get_template('page-404.html')
+        return HttpResponse(html_template.render(context, request))
+
+    except:
+
+        html_template = loader.get_template('page-500.html')
         return HttpResponse(html_template.render(context, request))
 
 # @login_required(login_url="/login/")
