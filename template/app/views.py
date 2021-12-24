@@ -37,6 +37,10 @@ def pages(request):
     try:
         
         load_template      = request.path.split('/')[-1]
+        print(load_template)
+        if request.path.split('/')[-2].isdigit():
+            work = Work.objects.get(int(request.path.split('/')[-2]))
+            context['work'] = work
         context['segment'] = load_template
         
         html_template = loader.get_template( load_template )
