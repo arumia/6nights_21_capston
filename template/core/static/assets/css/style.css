@@ -49,7 +49,7 @@ File: style.css
 /**  =====================
      Google Font
 ==========================  **/
-@import url("https://fonts.googleapis.com/css?family= :300,400,600");
+@import url("https://fonts.googleapis.com/css?family=Open+Sans:300,400,600");
 @import url("../plugins/bootstrap/css/bootstrap.min.css");
 @import url("../fonts/feather/css/feather.css");
 @import url("../plugins/jquery-scrollbar/css/jquery.scrollbar.min.css");
@@ -7279,6 +7279,7 @@ select.form-control-lg:not([size]):not([multiple]) {
   border-top: 1px solid #eaeaea;
   white-space: nowrap;
   padding: 1.05rem 0.75rem;
+  text-align: center;
 }
 .table thead th {
   border-bottom: 1px solid #eaeaea;

@@ -21,3 +21,8 @@ class Work(models.Model):
     lat = models.FloatField(null=True)
     lng = models.FloatField(null=True)
     worker = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
+    crop = models.TextField(null=True)
+    year = models.IntegerField(null=True)
+    count = models.IntegerField(null=True)
+    recent = models.TextField(null=True)
+    others = models.TextField(null=True)

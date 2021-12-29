@@ -40,7 +40,7 @@
                             </div>
                             <div class="card-block table-border-style">
                                 <div class="table-responsive">
-                                    <table class="table table-hover">
+                                    <table class="table table-hover" id="td">
                                         <thead>
                                             <tr>
                                                 <th>작업번호</th>
@@ -48,6 +48,7 @@
                                                 <th>작업시간</th>
                                                 <th>작업 위치</th>
                                                 <th>작업자</th>
+                                                <th>수정/삭제</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -74,10 +75,20 @@
                                                     </script>
                                                 </td>
                                                 <td>{{ Work.worker.username }}</td>
+                                                <td>
+                                                    <button class="btn btn-info dropdown-toggle btn-xs" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">변경</button>
+                                                    <div class="dropdown-menu">
+                                                        <a class="dropdown-item" href="/{{Work.id}}/maps-google.html">위치 수정</a>
+                                                        <a class="dropdown-item" href="/{{Work.id}}/farmland-info.html">농지 수정</a>
+                                                        <a class="dropdown-item" onclick="onDeleteBtn({{Work.id}})">삭제</a>
+                                                    </div>
+                                                </td>
                                             </tr>
                                             {% endfor %}
                                         {% else %}
-                                            <p>질문이 없습니다.</p>
+                                            <tr>
+                                                <th scope="row">작업 내역이 없습니다. 작업 실시 후 다시 조회해 주세요.</th>
+                                            </tr>
                                         {% endif %}
                                         </tbody>
                                     </table>
@@ -86,62 +97,6 @@
                         </div>
                     </div>
                     <!-- [ basic-table ] end -->
-
-                    <!-- [ Hover-table ] start -->
-                    <div class="col-xl-12">
-                        <div class="card">
-                            <div class="card-header">
-                                <h5>(사)고향감</h5>
-                                <span class="d-block m-t-5">담당자(김현우): 010-3333-3333</span>
-                            </div>
-                            <div class="card-block table-border-style">
-                                <div class="table-responsive">
-                                    <table class="table table-hover">
-                                        <thead>
-                                            <tr>
-                                                <th>년도</th>
-                                                <th>작물</th>
-                                                <th>수령</th>
-                                                <th>작물수</th>
-                                                <th>최근병해충</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <th scope="row">2017</th>
-                                                <td>감나무(조완)</td>
-                                                <td>2년</td>
-                                                <td>1204그루</td>
-                                                <td>없음</td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row">2018</th>
-                                                <td>감나무(조완)</td>
-                                                <td>3년</td>
-                                                <td>1183그루</td>
-                                                <td>없음</td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row">2020</th>
-                                                <td>감나무(조완)</td>
-                                                <td>4년</td>
-                                                <td>1024그루</td>
-                                                <td>없음</td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row">2021</th>
-                                                <td>감나무(조완)</td>
-                                                <td>5년</td>
-                                                <td>1024그루</td>
-                                                <td>없음</td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- [ Hover-table ] end -->
                 </div>
                 <!-- [ Main Content ] end -->
             </div>
@@ -153,5 +108,30 @@
 
 <!-- Specific Page JS goes HERE  -->
 {% block javascripts %}
-
+<script>
+    function onEditBtn(id){
+        window.location.href = '/'+id+'/maps-google.html';
+        //console.log('/'+id+'/maps.google.html');
+    }
+    function onDeleteBtn(id){
+        $.ajax({
+            type: 'POST',
+            url: '/delete/'+id+'/',	// form을 전송할 실제 파일경로
+            data: {},
+            timeout: 600000,
+            beforeSend : function() {
+                // 전송 전 실행 코드
+            },
+            success: function (data) {
+                // 전송 후 성공 시 실행 코드
+                console.log(data);
+                alert('작업정보가 삭제되었습니다.');
+            },
+            error: function (e) {
+                // 전송 후 에러 발생 시 실행 코드
+                console.log("ERROR : ", e);
+            }
+        });
+    }
+</script>
 {% endblock javascripts %}

@@ -16,7 +16,7 @@ from .serializers import WeatherSerializer, WorkSerializer
 from .models import Weather, Work
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
-#from pirc522 import RFID
+from pirc522 import RFID
 from .tasks import getgps
 import json
 
@@ -39,8 +39,10 @@ def pages(request):
         load_template      = request.path.split('/')[-1]
         print(load_template)
         if request.path.split('/')[-2].isdigit():
-            work = Work.objects.get(int(request.path.split('/')[-2]))
+            id = int(request.path.split('/')[-2])
+            work = Work.objects.get(id=id)
             context['work'] = work
+            context['id'] = id
         context['segment'] = load_template
         
         html_template = loader.get_template( load_template )
@@ -67,12 +69,12 @@ def job_list(request):
         load_template = request.path.split('/')[-1]
         print(load_template)
         work_list = Work.objects.order_by('-id')
-        print(work_list)
+        # print(work_list)
         # context = {'work_list': work_list}
         context['segment'] = load_template
         # print(context)
         context['work_list'] = work_list
-        print(context)
+        # print(context)
         html_template = loader.get_template(load_template)
 
         # return render(request, 'job-list.html', context)
@@ -112,6 +114,41 @@ def rfid(request):
     dic["uid"] = ', '.join(map(str, uid))
     return JsonResponse(dic)
 
+@csrf_exempt
+def geosave(request, id):
+    result = {}
+    if 'lat' in request.POST:
+        print(request.POST['lat'])
+        print(request.POST['lng'])
+        work = get_object_or_404(Work, pk=id)
+        work.lat = request.POST['lat']
+        work.lng = request.POST['lng']
+        work.save()
+    print("success")
+    return JsonResponse(result)
+
+@csrf_exempt
+def farmsave(request, id):
+    result = {}
+    if request.POST:
+        print(request.POST)
+        work = get_object_or_404(Work, pk=id)
+        work.crop = request.POST['crop']
+        work.year = request.POST['year']
+        work.count = request.POST['count']
+        work.recent = request.POST['recent']
+        work.others = request.POST['others']
+        work.save()
+    print("success")
+    return JsonResponse(result)
+
+@csrf_exempt
+def delete(request, id):
+    result = {}
+    work = get_object_or_404(Work, pk=id)
+    work.delete()
+    print("success")
+    return JsonResponse(result)
 
 @login_required(login_url="/login/")
 def job(request):
