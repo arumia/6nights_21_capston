@@ -1,4 +1,4 @@
-FROM python:3.6
+FROM python:3.9
 
 COPY manage.py gunicorn-cfg.py requirements.txt ./
 COPY app app
@@ -7,6 +7,9 @@ COPY core core
 COPY staticfiles staticfiles
 COPY media media
 
+RUN apt update && apt upgrade -y
+RUN apt install python3-dev gcc build-essential -y
+RUN apt install python-raspberry-gpio -y
 RUN pip install -r requirements.txt
 
 RUN python manage.py makemigrations
