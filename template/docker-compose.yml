@@ -1,27 +1,14 @@
 version: '3'
 services:
-  appseed-app:
+  app:
     restart: always
     build: .
     ports:
       - "5005:5005"
-    networks:
-      - db_network
-      - web_network
-  nginx:
+    depends_on:
+      - rabbitMQ
+  rabbitMQ:
     restart: always
-    image: "nginx:latest"
+    image: rabbitmq:latest
     ports:
-      - "85:85"
-    volumes:
-      - ./nginx:/etc/nginx/conf.d
-    networks:
-      - web_network
-    depends_on: 
-      - appseed-app
-networks:
-  db_network:
-    driver: bridge
-  web_network:
-    driver: bridge
- 
+      - "5672:5672"
