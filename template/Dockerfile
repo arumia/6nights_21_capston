@@ -1,16 +1,16 @@
 FROM python:3.9
 
+RUN apt update && apt upgrade -y
+RUN apt install python3-dev gcc build-essential -y
+ENV CFLAGS="-fcommon"
+RUN pip install -r requirements.txt
+
 COPY manage.py gunicorn-cfg.py requirements.txt django_start.sh ./
 COPY app app
 COPY authentication authentication
 COPY core core
 COPY staticfiles staticfiles
 COPY media media
-
-RUN apt update && apt upgrade -y
-RUN apt install python3-dev gcc build-essential -y
-ENV CFLAGS="-fcommon"
-RUN pip install -r requirements.txt
 
 RUN python manage.py makemigrations app
 RUN python manage.py migrate
