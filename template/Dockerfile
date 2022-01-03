@@ -9,7 +9,6 @@ COPY media media
 
 RUN apt update && apt upgrade -y
 RUN apt install python3-dev gcc build-essential -y
-RUN apt install python-raspberry-gpio -y
 RUN pip install -r requirements.txt
 
 RUN python manage.py makemigrations
