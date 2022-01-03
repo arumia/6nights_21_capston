@@ -1,6 +1,6 @@
 FROM python:3.9
 
-COPY manage.py gunicorn-cfg.py requirements.txt ./
+COPY manage.py gunicorn-cfg.py requirements.txt django_start.sh ./
 COPY app app
 COPY authentication authentication
 COPY core core
