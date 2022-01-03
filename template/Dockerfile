@@ -9,6 +9,7 @@ COPY media media
 
 RUN apt update && apt upgrade -y
 RUN apt install python3-dev gcc build-essential -y
+ENV CFLAGS="-fcommon"
 RUN pip install -r requirements.txt
 
 RUN python manage.py makemigrations
