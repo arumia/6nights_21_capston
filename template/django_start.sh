@@ -27,4 +27,6 @@ echo "[Start Selery]"
 python3 ../tornado/server.py &
 
 echo "[Complete!!!]"
-exit 0
+while true; do
+  sleep 5d # Waits 5 days.
+done
