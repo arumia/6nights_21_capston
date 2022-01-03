@@ -1,11 +1,13 @@
 FROM python:3.9
 
+COPY requirements.txt ./
+
 RUN apt update && apt upgrade -y
 RUN apt install python3-dev gcc build-essential -y
 ENV CFLAGS="-fcommon"
 RUN pip install -r requirements.txt
 
-COPY manage.py gunicorn-cfg.py requirements.txt django_start.sh ./
+COPY manage.py gunicorn-cfg.py django_start.sh ./
 COPY app app
 COPY authentication authentication
 COPY core core
