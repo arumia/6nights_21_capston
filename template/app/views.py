@@ -154,12 +154,11 @@ def delete(request, id):
 def job(request):
     result = {}
     success, lat, lon = getgps()
-    if success:
-        body = json.loads(request.body)
-        uid = body['uid']
-        user = request.user
-        work = Work(uid=uid, lat=lat, lng=lon, worker=user)
-        work.save()
+    body = json.loads(request.body)
+    uid = body['uid']
+    user = request.user
+    work = Work(uid=uid, lat=lat, lng=lon, worker=user)
+    work.save()
     result['success'] = success
     return JsonResponse(result)
 
