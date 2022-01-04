@@ -23,7 +23,7 @@ python3 manage.py runserver sami.works:8000 &
 echo "[Start Selery]"
 celery -A core worker -l info -B &
 
-echo "[Start Selery]"
+echo "[Start Tornado]"
 python3 ../tornado/server.py &
 
 echo "[Complete!!!]"
